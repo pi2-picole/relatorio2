@@ -1,0 +1,53 @@
+\chapter{Visão Geral do Sistema}
+
+\section{Visão Geral Do Subsistema de Software}
+
+O subsistema de \textit{software} será composto por um \textit{webapp} e o \textit{webservice} com o qual o web app e o \textit{raspberry} farão a comunicação. Na seção do webapp para o cliente será possível fazer a compra do picolé e a liberação do mesmo, por meio de um botão que se comunicará com o \textit{webservice}, que por sua vez comunicará com o \textit{raspberry}, dando o comando para liberação do picolé. A seção do \textit{webapp} para o vendedor terá funções de administrador, podendo aumentar o estoque quando recarregar a máquina de vendas e registrar a compra quando a mesma for feita pessoalmente, com dinheiro. 
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=\textwidth]{figuras/vg_software}
+    \caption{Diagrama de Software}
+    \label{fig:vg_software}
+\end{figure}
+
+% Além dessas funções, o web app do vendedor também poderá enviar uma notificação para todos que tiverem o web app do cliente instalado e estiverem a uma distância  determinada do vendedor. 
+
+
+
+\section{Visão Geral Do Subsistema de Eletrônica}
+
+A visão geral do subsistema eletrônico, consiste no controle geral feito pela Raspberry PI 3, na aquisição de dados da localização (GPS), informação a qual é utilizada no sistema de segurança de furto e extravio. O sistema de sensoriamento e controle de recepcionamento do cliente (som e interface) também é submetido por tal controlador, devido à sua alta capacidade de processamento. O diagrama da atividade eletrônica é mostrado na figura \ref{fig:diagrama} a seguir:
+
+\begin{figure}[H]
+	\centering
+    
+    \includegraphics[width=1.05\textwidth]{figuras/diagrama}
+    \caption{Diagrama da estrutura eletrônica do produto}
+    \label{fig:diagrama}
+\end{figure}
+
+
+\section{Visão Geral Do Subsistema de Estruturas}
+
+A visão geral das estruturas do projeto é dividida pelos componentes que necessitam ser construídos, fixados e integrados. São eles: mecanismos para entrega do picolé, estrutura de suporte das placas solares, carrinho de transporte da máquina de venda e os compartimentos internos da máquina de venda (\textit{freezer}, componentes eletrônicos, bateria e compressor).
+
+\begin{figure}[H]
+	\centering
+    
+    \includegraphics[width=\textwidth]{figuras/Vis_o_Geral_-_ESTRUTURA}
+    \caption{Diagrama das estruturas}
+    \label{fig:Vis_o_Geral_-_ESTRUTURA}
+\end{figure}
+
+\section{Visão Geral Do Subsistema de Energia}
+
+A visão geral do subsistema de energia, consiste no fornecimento de informações voltado para a alimentação dos sistemas consumidores de energia primária (refrigerador) e periféricos (iluminação, carregador de tablet, motores, sistema eletrônico, entre outros), bem como, o dimensionamento do painél fotovoltáico,  \textit{pack} de baterias, inversor e controlador de carga. 
+
+\begin{figure}[H]
+	\centering
+    
+    \includegraphics[scale=0.8]{figuras/diagrama_energia}
+    \label{fig:diagrama_energia}
+    \caption{Diagrama energia}
+\end{figure}
