@@ -1,8 +1,8 @@
 \chapter{Visão Geral do Sistema}
 
-\section{Visão Geral Do Subsistema de Software}
+\section{Visão Geral Do Subsistema de Software} 
 
-O subsistema de \textit{software} será composto por um \textit{webapp} e o \textit{webservice} com o qual o web app e o \textit{raspberry} farão a comunicação. Na seção do webapp para o cliente será possível fazer a compra do picolé e a liberação do mesmo, por meio de um botão que se comunicará com o \textit{webservice}, que por sua vez comunicará com o \textit{raspberry}, dando o comando para liberação do picolé. A seção do \textit{webapp} para o vendedor terá funções de administrador, podendo aumentar o estoque quando recarregar a máquina de vendas e registrar a compra quando a mesma for feita pessoalmente, com dinheiro. 
+O subsistema de \textit{software} é composto por um \textit{webapp} e o \textit{webservice} com o qual o web app faz e o \textit{raspberry} fará a comunicação. Na seção do webapp para o cliente é possível fazer a compra do picolé e a liberação do mesmo, por meio de um botão que se comunica com o \textit{webservice}, que por sua vez comunicará com o \textit{raspberry}, dando o comando para liberação do picolé. A seção do \textit{webapp} para o vendedor terá funções de administrador, podendo aumentar o estoque quando recarregar a máquina de vendas, além de o administrador poder cadastrar vendedor e máquina.
 
 \begin{figure}[H]
 	\centering
@@ -42,12 +42,13 @@ A visão geral das estruturas do projeto é dividida pelos componentes que neces
 
 \section{Visão Geral Do Subsistema de Energia}
 
-A visão geral do subsistema de energia, consiste no fornecimento de informações voltado para a alimentação dos sistemas consumidores de energia primária (refrigerador) e periféricos (iluminação, carregador de tablet, motores, sistema eletrônico, entre outros), bem como, o dimensionamento do painél fotovoltáico,  \textit{pack} de baterias, inversor e controlador de carga. 
-
-\begin{figure}[H]
+	A visão geral do subsistema de energia, consiste no fornecimento de informações voltado para a alimentação dos sistemas consumidores de energia primária (refrigerador) e periféricos (iluminação, carregador de tablet, motores, sistema eletrônico, entre outros), bem como, o dimensionamento do painel fotovoltaico,  \textit{pack} de baterias, inversor e controlador de carga. 
+   
+  \begin{figure}[H]
 	\centering
     
     \includegraphics[scale=0.8]{figuras/diagrama_energia}
     \label{fig:diagrama_energia}
     \caption{Diagrama energia}
 \end{figure}
+	O sistema foi dimensionado com um fator de segurança elevado, para que a \textit{Vending Machine} entregasse a confiabilidade de um produto passível de comercialização. Para isso, a bateria teve em seu dimensionamento a consideração do tempo de operação do serviço relacionado diretamente com o consumo da bateria. O inversor utilizado para o projeto foi dimensionado considerando as cargas exigidas, principalmente pelo compressor, o qual é o principal consumidor do produto. 
