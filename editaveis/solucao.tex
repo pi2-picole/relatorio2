@@ -4,7 +4,7 @@
 
 A solução encontrada pela equipe foi de modernizar a compra de picolés, tornando o processo mais rápido, acessível e de maior qualidade. A equipe de software está construindo um sistema de comunicação através de um WebService, e este WebService se comunica com dois tipos distintos de usuários: usuários clientes e usuário vendedor, cada qual com acesso a informações pertinentes que serão gerados pelo aplicativo.
 
-A parte eletrônica da máquina de vendas está integrada a um sistema de localização GPS e contará com um sistema de segurança com alarmes sonoros capazes de alertar o vendedor de algum furto ou chamar a atenção dos clientes próximos. O sistema de sensoriamento será totalmente integrado ao sistema de refrigeração para manter a temperatura interna numa faixa ótima de operação e evitar o degelo dos picolés. 
+A parte eletrônica da máquina de vendas está integrada a um sistema de localização GPS e contará com um sistema de segurança com alarmes sonoros capazes de alertar o vendedor de algum furto ou chamar a atenção dos clientes próximos. O sistema de sensoriamento será totalmente integrado ao sistema de refrigeração para manter a temperatura interna numa faixa ótima de operação e evitar o degelo dos picolés.
 
 A entrega de picolés ao consumidor final funcionará através de um sistema de espirais integrado a um servomotor. O compartimento de armazenamento dos produtos e dos equipamentos será construído e adaptado a fim de se obter uma máquina leve, pequena e que dificulte a troca de calor com o meio externo, tudo integrado abaixo de uma estrutura de sustentação de painéis solares, que realizarão o fornecimento de energia para refrigeração dos picolés.
 
@@ -45,12 +45,13 @@ Para o desenvolvimento do \textit{WebService} o grupo escolheu o \textit{framewo
 
 O projeto divide-se em várias classes, sendo elas: \textit{Popsicle}, \textit{Machine}, \textit{Location}, \textit{Transaction}, \textit{User}, \textit{Stock}. Seu relacionamento é demonstrado no seguinte diagrama de classes (Figura \ref{fig:diagrama_classes}).
 
-% \begin{figure}[H]
-% \centering
-% \includegraphics[width=0.4\textwidth]{figuras/diagrama_classes}
-%  \caption{Estrutura do freezer depois do corte}
-% \label{fig:freezer cortado}
-% \end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figuras/diagrama_classes}
+ \caption{Estrutura do freezer depois do corte}
+\label{fig:freezer cortado}
+\end{figure}
+
 \begin{itemize}
 \item \textit{Popsicle} representa um sabor de picolé e seu preço
 \item \textit{Location} armazena as informações de latitude e longitude enviadas pelo GPS integrado à máquina
@@ -83,108 +84,108 @@ As tecnologias utilizadas para a construção da interface que irá interagir di
 A área de compra para o cliente, ficou de acordo com o definido na solução, e a interface do usuário ficou da seguinte forma:
 
 \begin{itemize}
-\item 
+\item
 
 \subsubsection{Página Inicial}
 
-% \begin{figure}[H]
-% 	\centering
-%     \includegraphics[width=0.5\textwidth]{figuras/inicio}
-%     \caption{Cadastro de Máquinas}
-%     \label{fig:Página Inicial}
-% \end{figure}
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=\textwidth]{figuras/inicio}
+    \caption{Página Inicial}
+    \label{fig:Página Inicial}
+\end{figure}
 
 Essa é a tela inicial do webapp, proporcionando uma primeira idéia do que se trata o site.
 
 \item{Mapa de máquinas}
 
-% \begin{figure}[H]
-% 	\centering
-%     \includegraphics[width=0.5\textwidth]{figuras/map}
-%     \caption{Cadastro de Máquinas}
-%     \label{fig:Mapa de máquinas}
-% \end{figure}
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=\textwidth]{figuras/map}
+    \caption{Mapa de máquinas}
+    \label{fig:Mapa de máquinas}
+\end{figure}
 
 Diretamente embaixo do item acima, se encontra o mapa, onde estão sendo mostradas as máquinas disponíveis para serem comprados os picolés.
 
 \item{Mapa de máquinas (Com Rota)}
 
-% \begin{figure}[H]
-% 	\centering
-%     \includegraphics[width=0.5\textwidth]{figuras/rotas}
-%     \caption{Cadastro de Máquinas}
-%     \label{fig:Mapa de máquinas, com rotas}
-% \end{figure}
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=\textwidth]{figuras/rotas}
+    \caption{Mapa de máquinas, com rotas}
+    \label{fig:Mapa de máquinas, com rotas}
+\end{figure}
 
 Nesta figura se encontra a seleção de uma máquina e a definição da melhor rota para a máquina escolhida pelo cliente.
 
 
 \item{Seleção de sabores e quantidade}
 
-% \begin{figure}[H]
-% 	\centering
-%     \includegraphics[width=0.5\textwidth]{figuras/quantidade}
-%     \caption{Cadastro de Máquinas}
-%     \label{fig:Seleção de sabores}
-% \end{figure}
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=\textwidth]{figuras/quantidade}
+    \caption{Seleção de sabores}
+    \label{fig:Seleção de sabores}
+\end{figure}
 
 Selecionada a máquina na qual se deseja fazer a compra, e clicando no marcador correspondente, o popup acima aparece, possibilitando ao cliente selecionar os sabores e as quantidades de cada um.
 
 
 \item{Tela de pagamento}
 
-% \begin{figure}[H]
-% 	\centering
-%     \includegraphics[width=0.5\textwidth]{figuras/cartão}
-%     \caption{Cadastro de Máquinas}
-%     \label{fig:Tela de pagamento}
-% \end{figure} 
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=\textwidth]{figuras/cartao}
+    \caption{Tela De Pagamento}
+    \label{fig:Tela de pagamento}
+\end{figure}
 
 Após selecionados, e clicado no botão, a tela de pagamento é mostrada, o cliente deve entrar com os seus dados e finalizar a compra.
 
-Como definido anteriormente, foram definidos cadastros e estoque para as áreas de vendedor e administrador. As interfaces de cadastro e estoque são as seguintes: 
+Como definido anteriormente, foram definidos cadastros e estoque para as áreas de vendedor e administrador. As interfaces de cadastro e estoque são as seguintes:
 
 \item{Cadastro de Máquinas}
 
-% \begin{figure}[H]
-% 	\centering
-%     \includegraphics[width=0.5\textwidth]{figuras/cadastroMaquinas}
-%     \caption{Cadastro de Máquinas}
-%     \label{fig:CadastroMaquinas}
-% \end{figure}
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=\textwidth]{figuras/cadastroMaquinas}
+    \caption{Cadastro de Máquinas}
+    \label{fig:CadastroMaquinas}
+\end{figure}
 
-Na área de administrador , é possível cadastrar máquinas por meio dessa interface.
+Na área de administrador, é possível cadastrar máquinas por meio dessa interface.
 
 \item{Cadastro de Vendedor}
 
-% \begin{figure}[H]
-% 	\centering
-%     \includegraphics[width=0.5\textwidth]{figuras/cadastroVendedor}
-%     \caption{Cadastro de Máquinas}
-%     \label{fig:CadastroMaquinas}
-% \end{figure}
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=\textwidth]{figuras/cadastroVendedor}
+    \caption{Cadastro de Vendedor}
+    \label{fig:CadastroMaquinas}
+\end{figure}
 
-Nesta tela, é possível cadastrar vendedores .
+Nesta tela, é possível cadastrar vendedores.
 
 \item{Cadastro de Sabores}
 
-% \begin{figure}[H]
-% 	\centering
-%     \includegraphics[width=0.5\textwidth]{figuras/cadastroSabores}
-%     \caption{Cadastro de Máquinas}
-%     \label{fig:CadastroMaquinas}
-% \end{figure}
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=\textwidth]{figuras/cadastroSabores}
+    \caption{Cadastro de Sabores}
+    \label{fig:CadastroMaquinas}
+\end{figure}
 
 Nesta tela, o administrador pode cadastrar sabores de picolé.
 
 \item{Estoque}
 
-% \begin{figure}[H]
-% 	\centering
-%     \includegraphics[width=0.5\textwidth]{figuras/estoque}
-%     \caption{Cadastro de Máquinas}
-%     \label{fig:CadastroMaquinas}
-% \end{figure}
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=\textwidth]{figuras/storage}
+    \caption{Gerenciamento de estoque}
+    \label{fig:CadastroMaquinas}
+\end{figure}
 
 Nesta interface, o vendedor pode gerenciar seu estoque.
 
@@ -237,7 +238,7 @@ O circuito integrado é constituído de 8 amplificadores ligados em ponte, como 
     \item \textbf{Pinos 1, 8, 16, 23:} Alimentação positiva de cada um dos amplificadores. Foi utilizado 12 V, que é a tensão da fonte disponível do projeto.
     \item \textbf{Pinos 10, 11, 13, 14:} São as entradas de áudio. Como o áudio é o mesmo para todas as saídas, estes pinos foram ligados à mesma entrada.
     \item \textbf{Pino 2, 4, 5, 7, 17, 19, 20, 22:} São as saídas de áudio. Foram ligados 4 alto falantes de .......
-    
+
     \item \textbf{Pino 15:}
     \item \textbf{Pino 15:}
     \item \textbf{Pino 15:}
@@ -245,10 +246,10 @@ O circuito integrado é constituído de 8 amplificadores ligados em ponte, como 
 
 \subsection{Sistema de Sensoriamento}
 
-O projeto exige duas medidas para garantir seu bom funcionamento: a temperatura interna do recipiente dos picolés em resfriamento e um detector de presença para atender um possível cliente e para o sistema de alarme. 
+O projeto exige duas medidas para garantir seu bom funcionamento: a temperatura interna do recipiente dos picolés em resfriamento e um detector de presença para atender um possível cliente e para o sistema de alarme.
 
 	Para a medida de temperatura, utiliza-se o sensor DS18B20 (que opera de 3.3 a 5 volts) à prova d'água fabricado pela Maxim Integrated, o qual é ideal para medidas em temperaturas na faixa de -10ºC a 85ºC com precisão de 0.5ºC, obtendo uma faixa de operação ainda maior. Para o controle de acionamento do sistema de refrigeração usufruiu-se da plataforma UART do Arduíno UNO. A figura \ref{fig:sensor_temperatura} ilustra o sensor.
-    
+
 \begin{figure}[H]
 	\centering
     \includegraphics[width=0.5\textwidth]{figuras/sensor_temperatura}
@@ -267,7 +268,7 @@ O instrumento de sensoriamento de presença é o sensor ultrassônico de distân
 
 \subsubsection{Implementação}
 
-Para a implementação dos sensores, utilizou-se plataforma UART do Arduíno UNO e as bibliotecas disponíveis OneWire.h, DallasTemperature.h e Ultrasonic.h. A biblioteca DallasTemperature.h ..... 
+Para a implementação dos sensores, utilizou-se plataforma UART do Arduíno UNO e as bibliotecas disponíveis OneWire.h, DallasTemperature.h e Ultrasonic.h. A biblioteca DallasTemperature.h .....
 
 \subsubsection{Testes}
 
@@ -286,12 +287,12 @@ Sabe-se que o motor de passos necessita de um driver, e para isso, montou-se o d
 
 Esse drive é apresentado na figura \ref{fig:motor1}:
 
-%\begin{figure}[H]
-%\centering
-%\includegraphics[width=0.4\textwidth]{figuras/motor1}
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.4\textwidth]{figuras/motor1}
 %  \caption{Esquemático do Driver realizado para o motor de Passos}
-%\label{fig:motor1}
-%\end{figure}
+% \label{fig:motor1}
+% \end{figure}
 
 \subsection{Sistema do Acionamento do Compressor}
 
@@ -316,7 +317,7 @@ O controlador escolhido para integrar todos os sistemas será o Raspberry Pi 3, 
 
 \begin{itemize}
   \item Possui entradas e saídas digitais as quais podem ser usadas para controle dos sistemas GPS e controle dos motores e controle do sensoriamento;
-  \item Possui saída de áudio para o sistema de som; 
+  \item Possui saída de áudio para o sistema de som;
   \item Possui saída de vídeo para o sistema de interface com o usuário.
 \end{itemize}
 
@@ -341,7 +342,7 @@ Como solução para a estrutura foram levantadas várias possibilidades de produ
 \item Triciclo com compartimento dianteiro
 \item Triciclo com compartimento traseiro
 \item Máquina de venda estática
-\end{itemize} 
+\end{itemize}
 
 \begin{figure}[H]
 	\centering
@@ -370,13 +371,13 @@ Após consultoria com a empresa de sorvetes Saborizze®, não se tornou viável 
 \subsection{Proposta acolhida para o projeto}
 
 Como dito anteriormente, foi escolhido uma estrutura estática com acoplamento para um mecanismo de transporte. A construção desta estrutura escolhida pôde então ser subdividida da seguinte maneira:
- 
+
  \begin{itemize}
 \item Estrutura de suporte das placas solares
-A estrutura para o suporte da placa solar ainda não foi construído devido ao fato da mesma não ter sido ainda integrada ao sistema. 
+A estrutura para o suporte da placa solar ainda não foi construído devido ao fato da mesma não ter sido ainda integrada ao sistema.
 \item Mecanismos para venda automatizada de picolé
 
-O mecanismo para entrega dos picolés será composto por quatro espirais feitas em aço inox encaixadas dentro do freezer e controladas por servo motores. Entre as espirais seram construídas paredes em policloreto de vinil (PVC) para manter os picolés alinhados. Ao girar a espiral, os picolés serão empurrados na direção de uma cavidade que foi feita no fundo do freezer, derrubando o picolé dentro de uma caixa que também possuirá isolamento térmico e será onde o cliente terá acesso ao produto. 
+O mecanismo para entrega dos picolés será composto por quatro espirais feitas em aço inox encaixadas dentro do freezer e controladas por servo motores. Entre as espirais seram construídas paredes em policloreto de vinil (PVC) para manter os picolés alinhados. Ao girar a espiral, os picolés serão empurrados na direção de uma cavidade que foi feita no fundo do freezer, derrubando o picolé dentro de uma caixa que também possuirá isolamento térmico e será onde o cliente terá acesso ao produto.
 
 Aferiu-se as massas de cada um dos elementos dos subsistemas da máquina. Com tais dados foi possível determinar o CG (centro de gravidade) da estrutura, de modo a averiguar a estabilidade da mesma. As coordenadas do CG podem estão destacadas na figura \ref{fig:cad_vista_lateral}.
 
@@ -391,27 +392,27 @@ Aferiu-se as massas de cada um dos elementos dos subsistemas da máquina. Com ta
 
 A máquina de vendas possui três compartimentos principais que podem ser vistos na figura \ref{fig:cad_ZONAS}: compartimento para baterias e compressor (1), compartimento para os componentes eletrônicos (2), compartimento do freezer com isolamento térmico (3) e armazenamento temporário dos picolés (4).
 
-%    \begin{figure}[H]
-% 	\centering
-%     \includegraphics[width=0.4\textwidth]{figuras/cad_ZONAS}
-%     \caption{Compartimentos dedicados.}
-%     \label{fig:cad_ZONAS}
-% \end{figure}
+   \begin{figure}[H]
+	\centering
+    \includegraphics[width=0.4\textwidth]{figuras/cad_ZONAS}
+    \caption{Compartimentos dedicados.}
+    \label{fig:cad_ZONAS}
+\end{figure}
 
 A porta superior foi construída e parte das prateleiras para o posicionamento dos subsistemas já foram montadas como pode ser observado na figura \ref{fig:armario_vista_isometrica}.
 
 % Atualizar a figura da estrutura de MDF
 
-%    \begin{figure}[H]
-% 	\centering
-%     \includegraphics[width=0.4\textwidth]{figuras/armario_vista_isometrica}
-%     \caption{Estrutura em MDF}
-%     \label{fig:armario_vista_isometrica}
-% \end{figure}
+   \begin{figure}[H]
+	\centering
+    \includegraphics[width=0.4\textwidth]{figuras/armario_vista_isometrica}
+    \caption{Estrutura em MDF}
+    \label{fig:armario_vista_isometrica}
+\end{figure}
 
 \item Freezer
 
-O freezer foi adaptado a partir de uma estrutura doada (fig. \ref{fig:freezer}) onde será construído um isolamento térmico com placas de isopor e PVC. 
+O freezer foi adaptado a partir de uma estrutura doada (fig. \ref{fig:freezer}) onde será construído um isolamento térmico com placas de isopor e PVC.
 
 % Figura antiga do freezer
 
@@ -424,52 +425,52 @@ O freezer foi adaptado a partir de uma estrutura doada (fig. \ref{fig:freezer}) 
 
 A tampa que já estava presa ao freezer era instável e extremamente pesada, portanto optou-se por retirá-la e construir uma nova tampa para a estrutura. Além disso, os cortes necessários para o posicionamento da serpentina e para a queda dos picóles para outro compartimento foram feitos. O atual estado do freezer pode ser observado na figura \ref{fig:freezer_cortado}.
 
-%    \begin{figure}[H]
-% 	\centering
-%    \includegraphics[width=0.4\textwidth]{figuras/freezer_cortado}
-%     \caption{Estrutura do freezer depois do corte}
-%     \label{fig:freezer_cortado}
-% 	\end{figure}
-    
+   \begin{figure}[H]
+	\centering
+   \includegraphics[width=0.4\textwidth]{figuras/freezer_cortado}
+    \caption{Estrutura do freezer depois do corte}
+    \label{fig:freezer_cortado}
+	\end{figure}
+
 \item Molas
 
-A príncipio as molas seriam usinadas com diâmetro e passo especificados na figura \ref{fig:molas_dimensoes}). No entanto, a empresa de máquina de vendas Diletto Café emprestou molas (fig. \ref{fig:mola}) de aço inox  para o projeto, pois se tratando de uma máquina para alimentos a utilização de aço inoxidável é necessária afim de não contaminar o conteúdo perecível. A mola projetada apresentava espaço para 20 picolés, já a mola disponibilizada pela Diletto Café apresenta 19 espaços, possuindo perda de apenas 1 picolé por cada sabor. Logo, não apresenta grandes mudanças no estoque da máquina, além de ser uma solução mais econômica e com dimensões próximas as esperadas no projeto preliminar. 
+A príncipio as molas seriam usinadas com diâmetro e passo especificados na figura \ref{fig:molas_dimensoes}). No entanto, a empresa de máquina de vendas Diletto Café emprestou molas (fig. \ref{fig:mola}) de aço inox  para o projeto, pois se tratando de uma máquina para alimentos a utilização de aço inoxidável é necessária afim de não contaminar o conteúdo perecível. A mola projetada apresentava espaço para 20 picolés, já a mola disponibilizada pela Diletto Café apresenta 19 espaços, possuindo perda de apenas 1 picolé por cada sabor. Logo, não apresenta grandes mudanças no estoque da máquina, além de ser uma solução mais econômica e com dimensões próximas as esperadas no projeto preliminar.
 
-% Desenho técnico
+Desenho técnico
 
-%    \begin{figure}[H]
-% 	\centering
-%    \includegraphics[width=0.4\textwidth]{figuras/molas_dimensoes}
-%     \caption{Desenho técnico das molas dimensionadas}
-%     \label{fig:molas_dimensoes}
-% 	\end{figure}
+   \begin{figure}[H]
+	\centering
+   \includegraphics[width=0.4\textwidth]{figuras/molas_dimensoes}
+    \caption{Desenho técnico das molas dimensionadas}
+    \label{fig:molas_dimensoes}
+	\end{figure}
 
-% Foto da mola 
+Foto da mola
 
-%    \begin{figure}[H]
-% 	\centering
-%    \includegraphics[width=0.4\textwidth]{figuras/mola}
-%     \caption{Mola utilizada no projeto}
-%     \label{fig:mola}
-% 	\end{figure}
+   \begin{figure}[H]
+	\centering
+   \includegraphics[width=0.4\textwidth]{figuras/mola}
+    \caption{Mola utilizada no projeto}
+    \label{fig:mola}
+	\end{figure}
 
 \item Caixa da serpentina do compressor
 
-A serpentina do compressor (fig.\ref{fig: serpentina}) precisa estar dentro da região refrigerada, pois ela é a responsável pelo resfriamento do freezer. Levando isso em consideração, uma caixa de aço foi soldada para servir como uma extensão do freezer, viabilizando o posicionamento da serpentina logo abaixo da grade onde deslizam os picolés. 
+A serpentina do compressor (fig.\ref{fig: serpentina}) precisa estar dentro da região refrigerada, pois ela é a responsável pelo resfriamento do freezer. Levando isso em consideração, uma caixa de aço foi soldada para servir como uma extensão do freezer, viabilizando o posicionamento da serpentina logo abaixo da grade onde deslizam os picolés.
 
 % Precisamos de uma foto da caixa da serpentina
 
-% \begin{figure}[H]
-% \centering
-% \includegraphics[width=0.4\textwidth]{figuras/serpentina}
-%   \caption{CAD da serpentina}
-% \label{fig:serpentina}
-% \end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{figuras/serpentina}
+  \caption{CAD da serpentina}
+\label{fig:serpentina}
+\end{figure}
 
 \item Carrinho para o transporte da máquina de vendas
 
 	Para o transporte da máquina de vendas foi optado por uma estrutura simples e que pudesse ser acoplada à máquina durante seu transporte e depois desacoplada para assim poder ser reutilizada no transporte de outra máquina de vendas. Existe uma  estrutura já pronta no galpão que é similar à figura \ref{fig:Render_-_Carro_de_Transporte}.
-    
+
    \begin{figure}[H]
 	\centering
     \includegraphics[width=0.4\textwidth]{figuras/Render_-_Carro_de_Transporte}
@@ -487,13 +488,13 @@ A serpentina do compressor (fig.\ref{fig: serpentina}) precisa estar dentro da r
 \item A serpentina foi representada por um sólido de temperatura constante durante a refrigeração do freezer, pois a serpentina é resfriada através de um fluido mantido em circulação pelo compressor, o que geraria complicações na simulação.
 \end{itemize}
  Inicialmente, foi feita uma análise no Steady State Thermal Mechanical, para que o sistema de isolamento do freezer fosse estudado, onde considerou-se a temperatura da serpentina em -6,4\textdegree{}C, a temperatura ambiente em 22\textdegree{}C e convecção externa para ar estagnado (coeficiente de convecção de $5W/m^2\textdegree{}C$). Observou-se inicialmente que colocando-se isolamento dentro e fora do freezer, evitava que sua temperatura fosse mais baixa. Isso porque a presença de paredes de aço inox em contato direto com a serpentina, resfria consideravelmente o freezer.
- 
 
-\end{itemize} 
+
+\end{itemize}
 
 \section{Solução de Energia}
 
-Os subsistemas de energia estão divididos conforme a organização desta secção. 
+Os subsistemas de energia estão divididos conforme a organização desta secção.
 
 \subsection{Refrigeração}
 Atendendo aos requisitos definidos para o projeto, o recipiente no qual os picolés são armazenados  mantém-se refrigerado durante o período de venda. O processo de refrigeração consiste em retirar calor de uma corpo ou espaço para reduzir sua temperatura e transferir esse calor para outro corpo ou espaço \cite{campos2010refrigeraccao}. Portanto, a partir da análise das características da demanda de refrigeração, custos limitados e o tempo hábil para a construção e integração do produto em questão, encontrou-se duas opções de resfriamento:
@@ -530,7 +531,7 @@ Ao se optar pelo resfriamento por compressão tem-se as seguintes vantagens:
 \end{itemize}
 
 
-Outra opção a ser utilizada no projeto é o resfriamento por meio de compressor, uma vez que o consumo da célula de peltier é extremamente alto, 70W para a placa de 40x40x4 milímetros. Para resfriar o recipiente seriam necessários entre 7 a 10 módulos, o que necessitaria uma fonte de 490W a 700W e um inversor. A fonte de fornecimento escolhida foi placas fotovoltaicas e para conseguir manter esse fornecimento seria necessário uma área para absorção de energia solar muito maior do que seria possível instalar na máquina de vendas de picolé. 
+Outra opção a ser utilizada no projeto é o resfriamento por meio de compressor, uma vez que o consumo da célula de peltier é extremamente alto, 70W para a placa de 40x40x4 milímetros. Para resfriar o recipiente seriam necessários entre 7 a 10 módulos, o que necessitaria uma fonte de 490W a 700W e um inversor. A fonte de fornecimento escolhida foi placas fotovoltaicas e para conseguir manter esse fornecimento seria necessário uma área para absorção de energia solar muito maior do que seria possível instalar na máquina de vendas de picolé.
 
 
 Para o dimensionamento do compressor, é necessário calcular a potência necessária para fazer o fluido refrigerante circular pela serpentina. Essa potência foi encontrada a
@@ -551,45 +552,45 @@ $h_{1}$ é a entalpia no final da compressão (kJ/kg);
 
 \subsection{Alimentação}
 	As fontes de energia que serão utilizadas para alimentar o sistema de refrigeração da máquina de picolé são painéis fotovoltaicos e baterias. O painel solar será dimensionado levando em conta a demanda energética a qual a mesma supre para manter o banco de baterias em condições de manter o refrigerador em operação durante o período solicitado, bem como os outros equipamentos consumidores e referentes às outras áreas.
-    
+
   \begin{itemize}
     \item Diagrama Elétrico Simplificado
     	Abaixo, temos um diagrama elétrico simplificado da \textit{Vending Machine}, ele representa o circuito de alimentação utilizado, desde a geração de energia até o uso final. Este diagrama será refinado e detalhado no último ponto de controle, pois o sistema poderá sofrer algumas modificações e adições, tais como sistema de proteção e sistema externo auxiliar para o compressor.
-    
-    %    \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.7]{figuras/diagrama_simplificado}
-%     \caption{Diagrama Elétrico Simplificado}
-%     \label{fig:diagrama_simplificado}
-% \end{figure} 
+
+       \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figuras/diagrama_simplificado}
+    \caption{Diagrama Elétrico Simplificado}
+    \label{fig:diagrama_simplificado}
+\end{figure}
 
 		A seguir detalharemos cada um dos elementos do sistema, bem como o seu dimensionamento e características principais.
-        
+
 \end{itemize}
-    
-            
+
+
 \begin{itemize}
 \item Painel Fotovoltaico
 \end{itemize}
 		A tomada de decisão para escolha de um painel fotovoltaico deve considerar a demanda energética dos sistemas os quais serão alimentados, no caso da máquina de vendas especificamente, deverá carregar a bateria que alimentará o compressor, e deixa-la em condições de uso durante o período solicitado. A tensão gerada pela placa deverá ser elevada para atender às necessidades do compressor, para isso um inversor será instalado, bem como um controlador de carga.
         Para o dimensionamento prático e inicial do gerador fotovoltaico é válida a seguinte expressão:
-        
+
 \begin{eqnarray}
 Potência mínima do gerador (Wp) = \frac{\text{Consumo Total}(Wh/dia) }{\text{Horas equivalentes de sol pleno} (h/dia) x Fpp x Fps}
 \end{eqnarray}
 
         A quantidades de horas equivalentes de Sol pleno (horas/dia) depende da latitude e nível de nebulosidade do local considerando o nível médio do mês mais crítico no plano escolhido para instalar o módulo. A inclinação do módulo será zero. No Brasil considera-se entre 3,5 e 5 horas/dia de Sol pleno para o pior mês. Para Brasília foi adotado o valor de 4 horas.
-        
+
         O fator de perda de potência (FPP) pode ser estimado dividindo-se a tensão da bateria pela tensão de máxima potência do módulo a ser utilizado. Esta perda se deve ao fato da tensão da bateria (12 V) ser inferior à tensão de máxima potência do módulo a ser utilizado (Vmp=+/-16,6 V para os módulos Yingli). Um valor prático 12 V/16,6 V = 0,72. Estas perdas podem ser reduzidas através do uso de um controlador de carga com seguidor de máxima potência (MPPT).
         Saber o fator de perdas e segurança (FPS) é necessário para levar em conta a redução da geração do módulo devido à tolerância na fabricação (os módulos normalmente tem uma tolerância em relação à potência nominal de +/-3\%), temperatura de trabalho (quase sempre maior que os 25ºC da condição padrão de testes), poeira sobre o vidro, degradação com o tempo, presença de sombras em parte do dia, desvios na orientação e na inclinação e também devido às perdas elétricas na bateria, no controlador e na fiação, além de incertezas sobre os dados utilizados e o consumo previsto. Valor típico adotado é de 0,8.
-        
+
 \begin{eqnarray}
 Potência mínima do gerador (Wp) = \frac{\text{1880}(Wh/dia) }{\text{4} (h/dia) x 0,72 x 0,8} = 815 Wp
 \end{eqnarray}
-        
+
         A decisão de escolha do painel teve como variáveis a disponibilidade e custos de implementação foram limitantes, uma vez que um painel com essa potencia custa aproximadamente 7 mil reais. Dessa forma essas variáveis corroboraram para que um painel de 20Wp, disponibilizado por um integrante do grupo, fosse escolhido e funcionará de maneira análoga a um painel de grande porte, e ainda que de baixa potência,  auxiliará no processo de recarga da bateria.
         O painel da marca \textit{Yingli Solar - Power Your Life},  será utilizado e possui as seguintes especificações:
-        
+
 \begin{table}[]
 \centering
 \caption{My caption}
@@ -604,22 +605,22 @@ Potência mínima do gerador (Wp) = \frac{\text{1880}(Wh/dia) }{\text{4} (h/dia)
 \textbf{Tensão Máxima do Sistema {[}V{]}}                                           & \multicolumn{1}{l|}{\textbf{50}}   \\ \hline
 \end{tabular}
 \end{table}
-        
-        	De acordo com o selo PROCEL em parceria com o INMETRO, esse painel possui uma eficiência do tipo D, correspondente à 11,8\%, o que é compatível com outros painéis comerciais. 
+
+        	De acordo com o selo PROCEL em parceria com o INMETRO, esse painel possui uma eficiência do tipo D, correspondente à 11,8\%, o que é compatível com outros painéis comerciais.
             A área externa do módulo \textit{Yingli Solar-YL020P-17B 1/7} é de $0,17m^{2}$, possui uma produção média mensal de energia de 2,50kWh/mês, esse valores são importantes para que seja observado que um painel de maior dimensão apresentaria um melhor comportamento quando associado na \textit{Vending Machine}, mas por viabilidade econômica não será possível a implementação de um painel maior.
             Abaixo, uma foto do painel que sera instalado.
-            
-%  \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.7]{figuras/painel_solar01}
-%     \caption{Yingli Solar-YL020P-17B 1/7 }
-%     \label{fig:painel_solar01}
-% \end{figure}
-  
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figuras/painel_solar01}
+    \caption{Yingli Solar-YL020P-17B 1/7 }
+    \label{fig:painel_solar01}
+\end{figure}
+
 \begin{itemize}
 \item Bateria
 \end{itemize}
-	  
+
       A tomada de decisão para escolha de uma bateria deve considerar a tensão e a corrente.  \cite{de2011}. O cálculo de autonomia de uma bateria necessita de diversos dados. Existem 3 parâmetros os quais são considerados os principais para a a escolha de uma bateria: curva de descarga, capacidade de armazenamento e capacidade de descarga \cite{meggiolaro2006tutorial}. A curva de descarga é a relação do decaimento da tensão ao longo do consumo da capacidade nominal. A capacidade da bateria quantifica o tempo para que ocorra uma descarga total, medido em Ah (Ampér hora). A capacidade de descarga é a quantificação da entrega de carga sem que ocorram danos à bateria.
       As baterias de chumbo-ácido são muito utilizadas em sistemas onde a há correntes  elevadas, como motores de arranque e máquinas elétricas. É composta por Chumbo e Ácido Sulfúrico em concentrações calculadas que variam de 27 à 37 por cento \cite{de2005estudo}, podendo ser seladas ou não, possuindo vida útil de até 4 anos, apresentando assim uma boa relação de custo-benefício.
 
@@ -627,17 +628,17 @@ Potência mínima do gerador (Wp) = \frac{\text{1880}(Wh/dia) }{\text{4} (h/dia)
 \item Decisão da Bateria - Veicular x Estacionária
 \end{itemize}
 
-		Uma das decisões voltadas ao fornecimento de energia do projeto foi quanto ao do tipo de bateria que iria auxiliar no funcionamento da \textit{Vending Machine}. Para isso, foram analisados os tipos de bateria existentes no mercado, como as baterias automotivas, como o próprio nome já diz, são desenvolvidas para o uso em automóveis, com uma vida útil estimada de aproximadamente 3 anos, e com capacidade de suportar correntes de pico elevadas por um curto período de tempo, e as baterias de característica estacionária, as quais são construídas com materiais mais nobres, visando aumentar a sua vida útil e eficiência, relacionado diretamente à sua finalidade de manter equipamentos em funcionamento pleno. 
+		Uma das decisões voltadas ao fornecimento de energia do projeto foi quanto ao do tipo de bateria que iria auxiliar no funcionamento da \textit{Vending Machine}. Para isso, foram analisados os tipos de bateria existentes no mercado, como as baterias automotivas, como o próprio nome já diz, são desenvolvidas para o uso em automóveis, com uma vida útil estimada de aproximadamente 3 anos, e com capacidade de suportar correntes de pico elevadas por um curto período de tempo, e as baterias de característica estacionária, as quais são construídas com materiais mais nobres, visando aumentar a sua vida útil e eficiência, relacionado diretamente à sua finalidade de manter equipamentos em funcionamento pleno.
     	Uma análise feita nas especificações técnicas e características de ambas as baterias, como suas respectivas curvas de descarga, quantidade de ciclos em situação de uso diário, bem como a capacidade de suportar uma corrente elevada por um período de tempo maior, quando comparada às automotivas, tornam a bateria estacionária para o uso de equipamentos\textit{ off-grid}, a mais indicada.
    		A \textit{Vending Machine}, por ser um dispositivo que armazena produtos perecíveis, possuir uma câmara fria, além de ser um produto que tem como pré-requisito uma baixa manutenção, onde a confiabilidade do equipamento é um ponto muito importante, a bateria estacionária é a mais indicada para atender à proposta do equipamento, pela sua segurança, confiabilidade e comportamento mais estável além de suportar melhor descargas mais profundas, quando comparado com a uma bateria automotiva.
-        
+
 \begin{itemize}
 \item Dimensionamento da Bateria
 \end{itemize}
 
-Para dimensionar a bateria foi necessário definir o consumo médio diário de energia elétrica, ou seja, definir a curva de carga, tanto em termos diários quanto sazonais. Com esses dados foi possível visualizar as características previstas para o consumo de eletricidade, adequando-se o sistema para que o consumo e a produção fossem compatíveis ao longo do dia e ao longo do ano. 
+Para dimensionar a bateria foi necessário definir o consumo médio diário de energia elétrica, ou seja, definir a curva de carga, tanto em termos diários quanto sazonais. Com esses dados foi possível visualizar as características previstas para o consumo de eletricidade, adequando-se o sistema para que o consumo e a produção fossem compatíveis ao longo do dia e ao longo do ano.
 		A \textit{Vending Machine} possui dispositivos consumidores de energia elétrica, e para o dimensionamento de um sistema eficiente e confiável, é preciso analisar a relação de consumo energético, tempo de funcionamento do equipamento e energia disponível na bateria. Para isso, foi feito um levantamento da potência consumida pelos principais equipamentos e relacionados com o tempo de operação da máquina.
-        
+
 \begin{table}[]
 \centering
 \caption{Relação de Consumo}
@@ -650,7 +651,7 @@ Eletrônica & 38,2                & 3,18                 &12         \\ \hline
 Iluminação & 5            & 0,41            & 12          \\ \hline
 \end{tabular}
 \end{table}
-		
+
         Com uma relação dos principais consumidores de energia da \textit{Vending Machine} é possível ter uma média de consumo, e com isso relacionar ao tempo em que a bateria alimentará o sistema de forma segura e eficiente, atendendo às necessidades do produto proposto. O dimensionamento consiste em uma relação de consumo entre o produto e a bateria, levando em consideração a capacidade da bateria e o tempo de uso do equipamento.
 
 		Escolhida a bateria a ser usada, deve-se definir a profundidade de descarga com que se vai trabalhar. Existe um ciclo de carga e descarga que acontece diariamente, ou seja, a energia gerada durante o dia é armazenada na bateria e é fornecida pela mesma principalmente no horário noturno, descarregando. O outro tipo de descarga acontece, esporadicamente, durante períodos prolongados de nebulosidade, quando a bateria atinge níveis de descarga mais elevados.
@@ -659,7 +660,7 @@ Quanto mais profundos são os ciclos de descarga-carga, menor a vida útil da ba
 A capacidade do banco de baterias em Ah pode ser calculada usando uma das duas expressões abaixo (considerar a que resulta na maior capacidade):
 
 \begin{eqnarray}
-Capacidade (Ah) = \frac{\text{Consumo Total(Wh/dia) x Autonomia (dias)} }{\text{Tensão do banco de baterias (V) x Profundidade de descarga no final da autonomia (pu)}} 
+Capacidade (Ah) = \frac{\text{Consumo Total(Wh/dia) x Autonomia (dias)} }{\text{Tensão do banco de baterias (V) x Profundidade de descarga no final da autonomia (pu)}}
 \end{eqnarray}
 
 \begin{eqnarray}
@@ -674,7 +675,7 @@ Sendo que o consumo total é obtido a partir do levantamento das cargas, a auton
 
 		O dimensionamento do controlador de carga baseia-se, principalmente, na definição dos níveis máximos das correntes elétricas que passam por ele, tanto as provenientes do módulo fotovoltaico, quanto as que são solicitadas pela carga. A corrente elétrica máxima (de curto-circuito) que os módulos fotovoltaicos podem fornecer em condições de Sol pleno pode ser extraída das informações técnicas fornecidas pelo fabricante. A corrente elétrica máxima demandada pelas cargas pode ser conhecida a partir do levantamento de cargas realizado. Como o sistema está conectado diretamente na bateria, somente as correntes solicitadas pelos equipamentos passam pelo controlador. Adotar o maior valor encontrado nos dois cálculos (está incluída nas fórmulas um fator de 1,1 como uma folga de segurança).
         O cálculo da corrente do controlador de carga, do lado das cargas, pode ser obtido através da expressão:
-        
+
 \begin{eqnarray}
 \text{Corrente do controlador de Carga (A)} = \frac{\text{Potência das cargas CC (W) x 1,1}}{\text{Tensão do banco de baterias (V)}}
 \end{eqnarray}
@@ -686,60 +687,60 @@ Sendo que o consumo total é obtido a partir do levantamento das cargas, a auton
 \begin{itemize}
 \item Dimensionamento do Inversor
 \end{itemize}
-        
+
         Os parâmetros mais importantes para o dimensionamento do inversor são as tensões de entrada e saída e a potência nominal de uso continuo e de curta duração. O inversor deve ser capaz de fornecer a tensão e a corrente elétrica demandada pelos equipamentos que funcionam em corrente alternada tanto na operação normal quanto em condições transitórias como, por exemplo, na partida de motores.
 Para o dimensionamento do inversor, verificar a potência total das cargas de CA (corrente alternada) e selecionar um inversor com capacidade mínima 10\% acima. A tensão de entrada deve ser igual à tensão das baterias e a de saída igual à tensão das cargas de corrente alternada.
 
         Abaixo, temos um gráfico do comportamento de descarga da bateria estacionária FREEDOM DF500 (40Ah), a qual foi escolhida por atender às necessidades e permitir o funcionamento por um período de 3,5 horas.
 
-%       \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.7]{figuras/curva_descarga}
-%     \caption{Curva de Descarga}
-%     \label{fig:curva_descarga}
-% \end{figure}
+      \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figuras/curva_descarga}
+    \caption{Curva de Descarga}
+    \label{fig:curva_descarga}
+\end{figure}
 
 		Na curva de descarga apresentada acima é possível verificar o decaimento da Tensão x Tempo, conforme o tempo passa com o consumo indicado no gráfico. O comportamento inicial esta diretamente relacionado com a tensão inicial, onde nota-se uma queda abrupta, seguida de uma estabilização e prolongamento até a descarga chegar em níveis mais próximos do limite inferior de 10,5V recomendados pelo fabricante, esse comportamento é característico das baterias estacionárias.
         Para a \textit{Vendind Machine}, a curva que mais se aproxima do comportamento esta entre a de 10 e 5A, com isso, o tempo de operação está de acordo com o que foi estimado inicialmente.
-     
+
 \begin{itemize}
 \item Análise e Testes
 \end{itemize}
 			 Os testes são cruciais para a validação de todo e qualquer projeto, um dos primeiros testes feitos pelo grupo foi a confirmação do funcionamento do compressor e a verificação se o sistema de refrigeração, serpentinas e agregados estavam funcionando perfeitamente. Para isso, o conjunto foi desmontado e uma inspeção de todos os componentes foi feita. Com o compressor em funcionamento a validação de que o equipamento estava refrigerando foi feita através de um Termômetro Infravermelho, modelo GM300 da Benetech, indicando a temperatura de -6,7\degree, o que de acordo com as especificações técnicas fornecidas pelo fabricante do equipamento. Para uma confirmação mais precisa do dado, uma segunda verificação foi feita com um Termopar da Minipa, o qual apresentou um resultado muito próximo do outro equipamento, o que confirma que o compressor está com um bom funcionamento e sua temperatura de operação atende às necessidades do projeto.
-             
-%                    \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.7]{figuras/medicao_laser}
-%     \caption{Medição GM300}
-%     \label{fig:medicao_laser}
-% \end{figure}                 
 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.7]{figuras/medicao_termopar}
-%     \caption{Medição Termopar Minipa}
-%     \label{fig:medicao_termopar}
-% \end{figure}
+                   \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figuras/medicao_laser}
+    \caption{Medição GM300}
+    \label{fig:medicao_laser}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figuras/medicao_termopar}
+    \caption{Medição Termopar Minipa}
+    \label{fig:medicao_termopar}
+\end{figure}
 
 		 Algumas baterias usadas foram testadas anteriormente à compra da FREEDOM DF500, para fins experimentais e para avaliação da possibilidade de uso no projeto. As baterias abaixo foram colocadas em um equipamento balanceador de células e carregador da marca \textit{Turnigy Reaktor - 250W - 10A}, objetivando verificar se as baterias estavam em condições de uso. O equipamento emite um registo das resistências internas das baterias, as quais nenhuma estava apta para atender às necessidades do projeto. Fato esse, que foi solucionado com a compra de uma bateria estacionária nova, a qual passou pelo mesmo equipamento e apresentou bons resultados.
-         
-%   \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.7]{figuras/baterias_testadas}
-%     \caption{Baterias Testadas}
-%     \label{fig:baterias_testadas}
-% \end{figure}
-		
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figuras/baterias_testadas}
+    \caption{Baterias Testadas}
+    \label{fig:baterias_testadas}
+\end{figure}
+
        O teste de funcionamento da bateria, inversor e compressor ligados em conjunto foi feito no Laboratório de Termoflúidos da UnB, inicialmente foram feitas medições de tensão de saída e entrada do inversor, com o propósito  de verificar se o funcionamento do equipamento esta de acordo com as especificações do fabricante, e para não danificar os subsistemas, a verificação da tensão da bateria para validação de que o produto estava com a tensão correta de operação. Todas essas medições foram feitas com um Multímetro Minipa ET-400. A montagem dos bornes das baterias e encaixes foram feitos de maneira a deixar a maior superfície de contato com as ponteiras dos equipamentos.
-       O acionamento do sistema não deu partida no compressor, e o Inversor entrou em modo de segurança, o que indica  a corrente solicitada foi maior do que a suportada pelo dispositivo de segurança do inversor. Após esse imprevisto, a equipe realizou testes com o inversor utilizando outros tipos de carga, tais como: Furadeira DeWalt (650W), Esmeril (200W) e Secador de Cabelo Taiff (1300W), para todos os equipamentos o inversor correspondeu corretamente. Portanto,  o não acionamento do compressor \textit{TecumSeh} (AE9415ES) não é causada pela sua potência de 337W. 
+       O acionamento do sistema não deu partida no compressor, e o Inversor entrou em modo de segurança, o que indica  a corrente solicitada foi maior do que a suportada pelo dispositivo de segurança do inversor. Após esse imprevisto, a equipe realizou testes com o inversor utilizando outros tipos de carga, tais como: Furadeira DeWalt (650W), Esmeril (200W) e Secador de Cabelo Taiff (1300W), para todos os equipamentos o inversor correspondeu corretamente. Portanto,  o não acionamento do compressor \textit{TecumSeh} (AE9415ES) não é causada pela sua potência de 337W.
        Uma possibilidade para justificar o não acionamento do compressor, é a corrente de partida exigida. A potência de partida foi calculada considerando um fator de segurança de 6 vezes a potência nominal do equipamento, segundo o manual "Guia de Seleção de Partidas" da WEG, o que resulta em um pico de potência de 2022W, o que está dentro dos limites do Inversor comprado cuja as especificações são de 2000W, com pico de 4000W no momento da partida. Temos que todos equipamentos estão dentro das especificações de operação, contudo, o inversor não correspondeu como o esperado e soluções para o problema estão sendo elaboradas para que ocorra o pleno funcionamento da máquina.
-       
-%   \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.7]{figuras/teste_bancada}
-%     \caption{Teste na Bancada - Laboratório UnB}
-%     \label{fig:teste_bancada}
-% \end{figure}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figuras/teste_bancada}
+    \caption{Teste na Bancada - Laboratório UnB}
+    \label{fig:teste_bancada}
+\end{figure}
 
 % \begin{figure}
 % \centering
