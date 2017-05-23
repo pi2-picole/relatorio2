@@ -2,27 +2,23 @@
 
 \section{Solução Geral}
 
-A solução encontrada pela equipe foi de modernizar a compra de picolés, tornando o processo mais rápido, acessível e de maior qualidade. A equipe de software construirá um sistema de comunicação através de um WebService, e este WebService se comunicará com dois tipos distintos de usuários: usuários clientes e usuário vendedor, cada qual com acesso a informações pertinentes que serão gerados pelo aplicativo.
+A solução encontrada pela equipe foi de modernizar a compra de picolés, tornando o processo mais rápido, acessível e de maior qualidade. A equipe de software está construindo um sistema de comunicação através de um WebService, e este WebService se comunica com dois tipos distintos de usuários: usuários clientes e usuário vendedor, cada qual com acesso a informações pertinentes que serão gerados pelo aplicativo.
 
-A parte eletrônica da máquina de vendas estará integrada a um sistema de localização GPS e contará com um sistema de segurança com alarmes sonoros capazes de alertar o vendedor de algum furto ou chamar a atenção dos clientes próximos. O sistema de sensoriamento será totalmente integrado ao sistema de refrigeração para manter a temperatura interna numa faixa ótima de operação e evitar o degelo dos picolés. 
+A parte eletrônica da máquina de vendas está integrada a um sistema de localização GPS e contará com um sistema de segurança com alarmes sonoros capazes de alertar o vendedor de algum furto ou chamar a atenção dos clientes próximos. O sistema de sensoriamento será totalmente integrado ao sistema de refrigeração para manter a temperatura interna numa faixa ótima de operação e evitar o degelo dos picolés. 
 
-A entrega de picolés ao consumidor final funcionará através de um sistema de molas integrado a um servomotor. O compartimento de armazenamento dos produtos e dos equipamentos será construído e adaptado a fim de se obter uma máquina leve, pequena e que dificulte a troca de calor com o meio externo, tudo integrado abaixo de uma estrutura de sustentação de painéis solares, que realizarão o fornecimento de energia para refrigeração dos picolés.
+A entrega de picolés ao consumidor final funcionará através de um sistema de espirais integrado a um servomotor. O compartimento de armazenamento dos produtos e dos equipamentos será construído e adaptado a fim de se obter uma máquina leve, pequena e que dificulte a troca de calor com o meio externo, tudo integrado abaixo de uma estrutura de sustentação de painéis solares, que realizarão o fornecimento de energia para refrigeração dos picolés.
 
 A refrigeração dos picolés é realizada através de um compressor instalado no fundo da caixa térmica,  juntamente com o banco de baterias que alimenta os equipamentos eletrônicos. Para facilitar o transporte e manuseio da máquina foram instalados sistemas de acoplamento para transporte e um sistema de interface visual para os usuários clientes terem maior facilidade na adaptação ao novo tipo de vendas de picolés.
 
 A seguir detalhou-se as soluções de cada sub área.
 
-
 \section{Solução de Software}
 
-O subsistema de software é composto por um  webapp, dividido entre funções para para o cliente, vendedor e o administrador e um Webservice. O webapp fará comunicação com o webservice, responsável por toda a lógica do sistema, e também será construído pela equipe de software.
+O subsistema de software é composto por um \textit{webservice} e um \textit{webapp}, dividido entre interface para administrador, vendedor e cliente. O \textit{webapp} fará comunicação com o \textit{webservice}, responsável por toda a lógica do sistema, e também será construído pela equipe de software.
 
-	O seção no webapp para o vendedor permite a a manutenção do estoque de picolés. Ele poderá cadastrar diferentes sabores em diferentes quantidades, a qualquer momento. 
-    A seção do administrador permite o cadastro de máquinas e vendedores.
-%     Além disso o vendedor também poderá enviar uma notificação, compartilhando sua localização com todos os clientes próximos. Eles, então, poderão traçar uma rota para comprar o picolé. 
-    Outra funcionalidade, é de ler relatórios sobre vendas e formas de pagamento.
-    
-    A seção no webapp para o cliente tem a função de compra. O cliente em posse do webapp pode selecionar o vendedor e sabor do picolé que deseja comprar. Após determinado a quantidade dos sabores desejado o cliente insere o número do cartão de crédito e efetua a compra. Após confirmação do pagamento, o aplicativo libera um botão, o qual é responsável pela liberação do picolé. Com o botão liberado, o cliente se dirige até a máquina de vendas em questão no momento que desejar e pressiona o botão, com isso, os picolés comprados são liberados e o usuário pode retirar seu pedido. Além disso, o cliente poderá traçar uma rota para a máquina de vendas que escolher.
+A seção do administrador permite o cadastro de máquinas e vendedores. A do vendedor permite a manutenção do estoque de picolés, podendo cadastrar diferentes sabores e quantidades, a qualquer momento. Outra funcionalidade, para ambos, é gerar relatórios sobre vendas e formas de pagamento.
+
+A seção para o cliente tem apenas a função de compra, podendo selecionar o vendedor e sabor dos picolés que deseja comprar. Após determinado a quantidade dos sabores desejado o cliente insere o número do cartão de crédito e efetua a compra. Após confirmação do pagamento, o aplicativo libera um botão, o qual é responsável pela liberação do picolé. Com o botão liberado, o cliente se dirige até a máquina de vendas em questão no momento que desejar e pressiona o botão, com isso, os picolés comprados serão liberados e o usuário poderá retirar seu pedido. Além disso, o cliente pode traçar uma rota para a máquina de vendas que escolher.
 
 \begin{itemize}
 	\item Formas de pagamento:
@@ -44,15 +40,50 @@ O subsistema de software é composto por um  webapp, dividido entre funções pa
   	\end{itemize}
 \end{itemize}
 
-A implementação do subsistema de software foi dividida em dois setores principais: Backend (webservice), ou seja, a parte de "trás" do sistema, onde se encontra o banco de dados e toda a lógica do software, e Frontend (Webapp), que é a interface com o usuário. Nos tópicos a seguir, é detalhado como foi feita a implementação das duas áreas.
+\subsection{WebService}
+Para o desenvolvimento do \textit{WebService} o grupo escolheu o \textit{framework} \textit{Django}, que é escrito na linguagem \textit{Python}, pois é \textit{open source} e altamente testado pela comunidade, que permite o desenvolvimento robusto e ágil de aplicações \textit{web}. Além disso, boa parte do grupo possui familiaridade com esta tecnologia.
 
-\subsection{BackEnd}
-\subsubsection{Implementação}
+O projeto divide-se em várias classes, sendo elas: \textit{Popsicle}, \textit{Machine}, \textit{Location}, \textit{Transaction}, \textit{User}, \textit{Stock}. Seu relacionamento é demonstrado no seguinte diagrama de classes (Figura \ref{fig:diagrama_classes}).
 
-\subsection{FrontEnd}
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.4\textwidth]{figuras/diagrama_classes}
+%  \caption{Estrutura do freezer depois do corte}
+% \label{fig:freezer cortado}
+% \end{figure}
+\begin{itemize}
+\item \textit{Popsicle} representa um sabor de picolé e seu preço
+\item \textit{Location} armazena as informações de latitude e longitude enviadas pelo GPS integrado à máquina
+\item \textit{Machine} possui a localização física da máquina e o estoque de picolé
+\item \textit{Stock} demonstra a quantidade de picolés de um determinado sabor, que existem em certa máquina.
+\item \textit{Transaction} corresponde a uma transação de entrada ou saída de picolés na máquina, é responsável por atualizar os estoques. Entrada quando o vendedor deseja adicionar picolés, saída quando há remoção de picolés da máquina, ex.: retirada de sabores, transferência de picolés para outra máquina, e vendas.
+\item \textit{User} simboliza um usuário do sistema, com informações como nome, login, senha e restrição de acesso (é administrador ou não). Como o cliente não precisará informar estes dados, somente administradores e vendedores são representados nesta classe.
+\end{itemize}
+
+Além da arquitetura cliente-servidor, decidiu-se utilizar a arquitetura em camadas, bem típica de aplicações \textit{web}, no \textit{webservice}. O meio de interação entre o webapp e o servidor é uma API \textit{RESTful}.
+
+O código da API desenvolvido encontra-se no \href{http://github.com/pi2-picole/api}{repositório} do grupo.
+
+
+\subsection{WebApp}
 \subsection{Implementação}
 
+\subsubsection{Tecnologias}
+
+As tecnologias utilizadas para a construção da interface que irá interagir diretamente com o cliente estão dispostas nesta seção. São elas:
+
+\begin{itemize}
+\item \textbf{Javascript:} As requisições para o \textit{webservice} foram feitas com o uso de uma biblioteca javascript denominada Jquery. A bilioteca foi utilizada para fazer tanto requisições do tipo GET, quanto do tipo POST. É por meio das requisições que se atualizam informações como estoque atual, localização das máquinas e faz todos os cadastros do sistema, em resumo, todas as interações que precisam atualizar o banco de dados e serviço de localização. Todos os eventos dinâmicos foram feitos na linguagem javascript.
+\item \textbf{Google maps API:} A sigla API significa \textit{Application Programming Interface}, a google oferece diferentes APIs para serviços de localização, a utilizada no projeto é a API javascript do google maps, e os recursos são utilizados para obter a localização do usuário, a localização das máquinas através de latitude e longitude e calcular a rota até a máquina que o usuário escolher para efetivar a compra.
+\item\textbf{ html 5 + css 3:} Foram utilizadas para a construção de toda a interface com o usuário. A parte da aplicação que usário realmente vê e interage é a que foi feita em html+css. Como a aplicação final é um \textit{webapp} a responsividade é indiscutivelmente importante, a aplicação tem que se comportar perfeitamente em dispositivos móveis, o html e o css são os responsáveis pela aplicação está completamente responsiva.
+\item\textbf{Git:} O Git é um sistema de controle de versão distribuído gratuito, permite controlar as versões do código e que várias pessoas trabalhem na mesma funcionalidade.
+\end{itemize}
+
+
 A área de compra para o cliente, ficou de acordo com o definido na solução, e a interface do usuário ficou da seguinte forma:
+
+\begin{itemize}
+\item 
 
 \subsubsection{Página Inicial}
 
@@ -63,7 +94,9 @@ A área de compra para o cliente, ficou de acordo com o definido na solução, e
 %     \label{fig:Página Inicial}
 % \end{figure}
 
-\subsubsection{Mapa de máquinas}
+Essa é a tela inicial do webapp, proporcionando uma primeira idéia do que se trata o site.
+
+\item{Mapa de máquinas}
 
 % \begin{figure}[H]
 % 	\centering
@@ -72,8 +105,9 @@ A área de compra para o cliente, ficou de acordo com o definido na solução, e
 %     \label{fig:Mapa de máquinas}
 % \end{figure}
 
+Diretamente embaixo do item acima, se encontra o mapa, onde estão sendo mostradas as máquinas disponíveis para serem comprados os picolés.
 
-\subsubsection{Mapa de máquinas (Com Rota)}
+\item{Mapa de máquinas (Com Rota)}
 
 % \begin{figure}[H]
 % 	\centering
@@ -82,8 +116,10 @@ A área de compra para o cliente, ficou de acordo com o definido na solução, e
 %     \label{fig:Mapa de máquinas, com rotas}
 % \end{figure}
 
+Nesta figura se encontra a seleção de uma máquina e a definição da melhor rota para a máquina escolhida pelo cliente.
 
-\subsubsection{Seleção de sabores e quantidade}
+
+\item{Seleção de sabores e quantidade}
 
 % \begin{figure}[H]
 % 	\centering
@@ -92,18 +128,23 @@ A área de compra para o cliente, ficou de acordo com o definido na solução, e
 %     \label{fig:Seleção de sabores}
 % \end{figure}
 
-\subsubsection{Tela de pagamento}
+Selecionada a máquina na qual se deseja fazer a compra, e clicando no marcador correspondente, o popup acima aparece, possibilitando ao cliente selecionar os sabores e as quantidades de cada um.
+
+
+\item{Tela de pagamento}
 
 % \begin{figure}[H]
 % 	\centering
 %     \includegraphics[width=0.5\textwidth]{figuras/cartão}
 %     \caption{Cadastro de Máquinas}
 %     \label{fig:Tela de pagamento}
-% \end{figure}
+% \end{figure} 
+
+Após selecionados, e clicado no botão, a tela de pagamento é mostrada, o cliente deve entrar com os seus dados e finalizar a compra.
 
 Como definido anteriormente, foram definidos cadastros e estoque para as áreas de vendedor e administrador. As interfaces de cadastro e estoque são as seguintes: 
 
-\subsubsection{Cadastro de Máquinas}
+\item{Cadastro de Máquinas}
 
 % \begin{figure}[H]
 % 	\centering
@@ -112,7 +153,9 @@ Como definido anteriormente, foram definidos cadastros e estoque para as áreas 
 %     \label{fig:CadastroMaquinas}
 % \end{figure}
 
-\subsubsection{Cadastro de Vendedor}
+Na área de administrador , é possível cadastrar máquinas por meio dessa interface.
+
+\item{Cadastro de Vendedor}
 
 % \begin{figure}[H]
 % 	\centering
@@ -121,7 +164,9 @@ Como definido anteriormente, foram definidos cadastros e estoque para as áreas 
 %     \label{fig:CadastroMaquinas}
 % \end{figure}
 
-\subsubsection{Cadastro de Sabores}
+Nesta tela, é possível cadastrar vendedores .
+
+\item{Cadastro de Sabores}
 
 % \begin{figure}[H]
 % 	\centering
@@ -130,7 +175,9 @@ Como definido anteriormente, foram definidos cadastros e estoque para as áreas 
 %     \label{fig:CadastroMaquinas}
 % \end{figure}
 
-\subsubsection{Estoque}
+Nesta tela, o administrador pode cadastrar sabores de picolé.
+
+\item{Estoque}
 
 % \begin{figure}[H]
 % 	\centering
@@ -139,7 +186,9 @@ Como definido anteriormente, foram definidos cadastros e estoque para as áreas 
 %     \label{fig:CadastroMaquinas}
 % \end{figure}
 
+Nesta interface, o vendedor pode gerenciar seu estoque.
 
+\end{itemize}
 
 \section{Solução de Eletrônica}
 
@@ -167,7 +216,7 @@ Para a comunicação do módulo integrado do GPS é necessário o uso de duas bi
 
 Para o sistema de segurança integrado ao projeto, é necessário emitir um aviso caso a máquina de vendas seja violado ou removido do local designado pelo vendedor. Além disso, há um assistente com voz automática para receber um cliente próximo à máquina de vendas e, quando não houver nenhuma pessoa por perto, o sistema emite uma propaganda do produto. O sistema de som é responsável por atender os clientes quando estes se aproximam, fazer propaganda e alarmar em caso de violação.
 
-O circuito amplificador montado foi utilizando o circuito integrado TDA8571, o qual é um amplificador dedicado capaz de oferecer 40 W para até 4 alto falantes de 4 ohms cada.
+O circuito amplificador montado foi utilizando o circuito integrado TDA8571, o qual é um amplificador dedicado capaz de oferecer 40 W para até 4 alto falantes de 4 Ohms cada.
 
 \subsubsection{Implementação}
 
@@ -187,7 +236,7 @@ O circuito integrado é constituído de 8 amplificadores ligados em ponte, como 
     \item \textbf{Pinos 3, 6, 18, 21:} Alimentação negativa (terra 0 V) de cada um dos amplificadores.
     \item \textbf{Pinos 1, 8, 16, 23:} Alimentação positiva de cada um dos amplificadores. Foi utilizado 12 V, que é a tensão da fonte disponível do projeto.
     \item \textbf{Pinos 10, 11, 13, 14:} São as entradas de áudio. Como o áudio é o mesmo para todas as saídas, estes pinos foram ligados à mesma entrada.
-    \item \textbf{Pino 2, 4, 5, 7, 17, 19, 20, 22:} São as saídas de áudio. Foram ligados 4 alto-falantes de .......
+    \item \textbf{Pino 2, 4, 5, 7, 17, 19, 20, 22:} São as saídas de áudio. Foram ligados 4 alto falantes de .......
     
     \item \textbf{Pino 15:}
     \item \textbf{Pino 15:}
@@ -218,6 +267,8 @@ O instrumento de sensoriamento de presença é o sensor ultrassônico de distân
 
 \subsubsection{Implementação}
 
+Para a implementação dos sensores, utilizou-se plataforma UART do Arduíno UNO e as bibliotecas disponíveis OneWire.h, DallasTemperature.h e Ultrasonic.h. A biblioteca DallasTemperature.h ..... 
+
 \subsubsection{Testes}
 
 \subsection{Sistema dos Motores}
@@ -231,7 +282,16 @@ Os picolés serão entregues por meio de um sistemas de molas similar a de máqu
 \end{figure}
 
 Logo, é necessário inserir um motor ao final de cada mola e fazer o controle do giro para que os picolés caíam conforme o pedido do cliente. Para que se realizasse este objetivo, a proposta inicial se tratava da utilização de um motor do tipo servomotor, uma vez que teoricamente, este, possui o torque suficiente para movimentar a longa fileira de picolés situados na mola com uma precisão de uma volta (360\degree por venda). Uma outra justificava a facilidade de controle com apenas um fio, contudo na prática e durante os testes realizados notou-se uma imprecisão no giro quando se retirava a trava e alterava o potênciometro original por um resistor para que, o mesmo, conseguisse dar um volta completa de 360\degree. Devido a esses problemas, a nova escolha se trata de um motor encontrado em sucata. Este é um motor de passos TAMAGAWA SEIKIM do tipo TS3103N145, com 200 passos por revolução e torque de 6 Kgfcm, além de ser DC e com alimentação de 12V.
-Sabe-se que o motor de passos necessita de um driver, e para isso, montou-se o drive de controle constituído por resistores, transístores e diodos.
+Sabe-se que o motor de passos necessita de um driver, e para isso, montou-se o drive de controle constituído por resistores de 220 Ohms, transístores TIP41C e diodos N4007.
+
+Esse drive é apresentado na figura \ref{fig:motor1}:
+
+%\begin{figure}[H]
+%\centering
+%\includegraphics[width=0.4\textwidth]{figuras/motor1}
+%  \caption{Esquemático do Driver realizado para o motor de Passos}
+%\label{fig:motor1}
+%\end{figure}
 
 \subsection{Sistema do Acionamento do Compressor}
 
@@ -313,35 +373,45 @@ Como dito anteriormente, foi escolhido uma estrutura estática com acoplamento p
  
  \begin{itemize}
 \item Estrutura de suporte das placas solares
-
+A estrutura para o suporte da placa solar ainda não foi construído devido ao fato da mesma não ter sido ainda integrada ao sistema. 
 \item Mecanismos para venda automatizada de picolé
 
 O mecanismo para entrega dos picolés será composto por quatro espirais feitas em aço inox encaixadas dentro do freezer e controladas por servo motores. Entre as espirais seram construídas paredes em policloreto de vinil (PVC) para manter os picolés alinhados. Ao girar a espiral, os picolés serão empurrados na direção de uma cavidade que foi feita no fundo do freezer, derrubando o picolé dentro de uma caixa que também possuirá isolamento térmico e será onde o cliente terá acesso ao produto. 
 
+Aferiu-se as massas de cada um dos elementos dos subsistemas da máquina. Com tais dados foi possível determinar o CG (centro de gravidade) da estrutura, de modo a averiguar a estabilidade da mesma. As coordenadas do CG podem estão destacadas na figura \ref{fig:cad_vista_lateral}.
+
    \begin{figure}[H]
 	\centering
-    \includegraphics[width=0.6\textwidth]{figuras/cad_vista_lateral}
-    \caption{CAD do sistema de liberação do picolé e compartimentos da máquina de vendas}
+    \includegraphics[width=0.8\textwidth]{figuras/cad_vista_lateral}
+    \caption{Vista lateral em corte indicando o centro de massa}
     \label{fig:cad_vista_lateral}
 \end{figure}
 
 \item Compartimentos da máquina de vendas
 
-A máquina de vendas possui três compartimentos principais: compartimento para baterias e compressor, compartimento do freezer com isolamento térmico e compartimento para os componentes eletrônicos. Na Figura abaixo podemos visualizar a parte da estrutura que está sendo construída em madeira (MDF) e possui o compartimento para baterias e compressor (1), compartimento para os motores (2)e um encaixe superior para o freezer (3). 
+A máquina de vendas possui três compartimentos principais que podem ser vistos na figura \ref{fig:cad_ZONAS}: compartimento para baterias e compressor (1), compartimento para os componentes eletrônicos (2), compartimento do freezer com isolamento térmico (3) e armazenamento temporário dos picolés (4).
+
+%    \begin{figure}[H]
+% 	\centering
+%     \includegraphics[width=0.4\textwidth]{figuras/cad_ZONAS}
+%     \caption{Compartimentos dedicados.}
+%     \label{fig:cad_ZONAS}
+% \end{figure}
+
+A porta superior foi construída e parte das prateleiras para o posicionamento dos subsistemas já foram montadas como pode ser observado na figura \ref{fig:armario_vista_isometrica}.
+
 % Atualizar a figura da estrutura de MDF
 
 %    \begin{figure}[H]
 % 	\centering
 %     \includegraphics[width=0.4\textwidth]{figuras/armario_vista_isometrica}
-%     \caption{Armário feito em MDF}
-%     \label{fig:armário}
+%     \caption{Estrutura em MDF}
+%     \label{fig:armario_vista_isometrica}
 % \end{figure}
-
-A porta superior foi construída e parte das prateleiras para o posicionamento dos subsistemas já foram montadas. 
 
 \item Freezer
 
-O freezer foi adaptado a partir de uma estrutura doada, apresentada a seguir, onde será construído um isolamento térmico com placas de isopor e PVC. 
+O freezer foi adaptado a partir de uma estrutura doada (fig. \ref{fig:freezer}) onde será construído um isolamento térmico com placas de isopor e PVC. 
 
 % Figura antiga do freezer
 
@@ -352,18 +422,29 @@ O freezer foi adaptado a partir de uma estrutura doada, apresentada a seguir, on
     \label{fig:freezer}
 \end{figure}
 
-A tampa que já estava presa ao freezer era instável e extremamente pesada, portanto optou-se por retirá-la e construir uma nova tampa para a estrutura. Além disso, os cortes necessários para o posicionamento da serpentina e para a queda dos picóles para outro compartimento foram feitos. O atual estado do freezer pode ser observado na figura abaixo:
+A tampa que já estava presa ao freezer era instável e extremamente pesada, portanto optou-se por retirá-la e construir uma nova tampa para a estrutura. Além disso, os cortes necessários para o posicionamento da serpentina e para a queda dos picóles para outro compartimento foram feitos. O atual estado do freezer pode ser observado na figura \ref{fig:freezer_cortado}.
 
 %    \begin{figure}[H]
 % 	\centering
 %    \includegraphics[width=0.4\textwidth]{figuras/freezer_cortado}
 %     \caption{Estrutura do freezer depois do corte}
-%     \label{fig:freezer cortado}
+%     \label{fig:freezer_cortado}
 % 	\end{figure}
     
 \item Molas
 
-A príncipio as molas seriam usinadas, no entanto, outra opção se mostrou mais viável. A empresa de máquina de vendas Diletto Café emprestou molas para o projeto. Na figura a seguir é possível observar a mola utilizada.
+A príncipio as molas seriam usinadas com diâmetro e passo especificados na figura \ref{fig:molas_dimensoes}). No entanto, a empresa de máquina de vendas Diletto Café emprestou molas (fig. \ref{fig:mola}) de aço inox  para o projeto, pois se tratando de uma máquina para alimentos a utilização de aço inoxidável é necessária afim de não contaminar o conteúdo perecível. A mola projetada apresentava espaço para 20 picolés, já a mola disponibilizada pela Diletto Café apresenta 19 espaços, possuindo perda de apenas 1 picolé por cada sabor. Logo, não apresenta grandes mudanças no estoque da máquina, além de ser uma solução mais econômica e com dimensões próximas as esperadas no projeto preliminar. 
+
+% Desenho técnico
+
+%    \begin{figure}[H]
+% 	\centering
+%    \includegraphics[width=0.4\textwidth]{figuras/molas_dimensoes}
+%     \caption{Desenho técnico das molas dimensionadas}
+%     \label{fig:molas_dimensoes}
+% 	\end{figure}
+
+% Foto da mola 
 
 %    \begin{figure}[H]
 % 	\centering
@@ -374,13 +455,20 @@ A príncipio as molas seriam usinadas, no entanto, outra opção se mostrou mais
 
 \item Caixa da serpentina do compressor
 
-A serpentina do compressor precisa estar dentro da região refrigerada, pois ela é a responsável pelo resfriamento do freezer. Levando isso em consideração, uma caixa de aço foi soldada para servir como uma extensão do freezer, viabilizando o posicionamento da serpentina logo abaixo da grade onde deslizam os picolés. 
+A serpentina do compressor (fig.\ref{fig: serpentina}) precisa estar dentro da região refrigerada, pois ela é a responsável pelo resfriamento do freezer. Levando isso em consideração, uma caixa de aço foi soldada para servir como uma extensão do freezer, viabilizando o posicionamento da serpentina logo abaixo da grade onde deslizam os picolés. 
 
 % Precisamos de uma foto da caixa da serpentina
 
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.4\textwidth]{figuras/serpentina}
+%   \caption{CAD da serpentina}
+% \label{fig:serpentina}
+% \end{figure}
+
 \item Carrinho para o transporte da máquina de vendas
 
-	Para o transporte da máquina de vendas foi optado por uma estrutura simples e que pudesse ser acoplada à máquina durante seu transporte e depois desacoplada para assim poder ser reutilizada no transporte de outra máquina de vendas. Existe uma  estrutura já pronta no galpão que é similar à figura mostrada na imagem abaixo:
+	Para o transporte da máquina de vendas foi optado por uma estrutura simples e que pudesse ser acoplada à máquina durante seu transporte e depois desacoplada para assim poder ser reutilizada no transporte de outra máquina de vendas. Existe uma  estrutura já pronta no galpão que é similar à figura \ref{fig:Render_-_Carro_de_Transporte}.
     
    \begin{figure}[H]
 	\centering
@@ -388,10 +476,18 @@ A serpentina do compressor precisa estar dentro da região refrigerada, pois ela
     \caption{Estrutura base para o transporte da máquina de vendas}
     \label{fig:Render_-_Carro_de_Transporte}
 \end{figure}
+
 \subsection{Análise de temperatura em regime transiente (ANSYS)}
 
- Através do software TRANSIENT THERMAL - MECHANICAL ANSYS MULTIPHYSICS, foi possível realizar uma análise da transferência de calor no freezer. O método utilizado neste programa é o MEF (Método dos Elementos Finitos), onde o objeto de análise é discretizado em finitos elementos e utiliza-se um método numérico para solucionar as equações diferenciais parciais que determinam a temperatura e fluxo de calor variando no tempo em cada elemento, para um intervalo de tempo pré-determinado.
-
+ Através do software STEADY STATE and TRANSIENT THERMAL - MECHANICAL ANSYS MULTIPHYSICS, foi possível realizar uma análise da transferência de calor no freezer, com o objetivo de analisar o sistema de isolamento térmico além do sistema de resfriamento do freezer, que deve manter o picolé em uma temperatura apropriada. O método utilizado neste programa é o MEF (Método dos Elementos Finitos), onde o objeto de análise é discretizado em finitos elementos e utiliza-se um método numérico para solucionar as equações diferenciais parciais que determinam a temperatura e fluxo de calor variando no tempo em cada elemento, para um intervalo de tempo pré-determinado.
+ Foram feitas algumas suposições e aproximações para possibilitar a análise da transferência de calor no sistema de refrigeração. Tais como:
+\begin{itemize}
+\item Representou-se a serpentina como uma caixa de volume aproximado;
+\item Para a analise da transferência de calor através do ar interno do freezer, quando este tinha uma velocidade diferente de zero, aumentou-se seu coeficiente de condução já que não poderia ser propriamente representado como um fluido em movimento.
+\item A serpentina foi representada por um sólido de temperatura constante durante a refrigeração do freezer, pois a serpentina é resfriada através de um fluido mantido em circulação pelo compressor, o que geraria complicações na simulação.
+\end{itemize}
+ Inicialmente, foi feita uma análise no Steady State Thermal Mechanical, para que o sistema de isolamento do freezer fosse estudado, onde considerou-se a temperatura da serpentina em -6,4\textdegree{}C, a temperatura ambiente em 22\textdegree{}C e convecção externa para ar estagnado (coeficiente de convecção de $5W/m^2\textdegree{}C$). Observou-se inicialmente que colocando-se isolamento dentro e fora do freezer, evitava que sua temperatura fosse mais baixa. Isso porque a presença de paredes de aço inox em contato direto com a serpentina, resfria consideravelmente o freezer.
+ 
 
 \end{itemize} 
 
@@ -409,7 +505,6 @@ Atendendo aos requisitos definidos para o projeto, o recipiente no qual os picol
 \begin{itemize}
 \item Compressor;
 \end{itemize}
-
 
 O módulo de Peltier é a maneira mais prática de se utilizar o efeito peltier em larga escala, e consiste em um arranjo de pequenos blocos de \textit{telureto de bismuto - $Bi_{2}Te_{3}$} dopados tipo N e tipo P montados alternamente e eletricamente em série entre duas placas de cerâmica com alta condutividade térmica.Os semicondutores utilizados possuem altos coeficientes de Seebeck e podem ser tipo N $(\alpha \leq 0)$ e tipo P $(\alpha \geq 0)$  \cite{campos2010refrigeraccao}.
 
@@ -644,4 +739,38 @@ Para o dimensionamento do inversor, verificar a potência total das cargas de CA
 %     \includegraphics[width=0.7]{figuras/teste_bancada}
 %     \caption{Teste na Bancada - Laboratório UnB}
 %     \label{fig:teste_bancada}
+% \end{figure}
+
+% \begin{figure}
+% \centering
+% \begin{subfigure}{.5\textwidth}
+%   \centering
+%   \includegraphics[width=.4\linewidth]{image1}
+%   \caption{A subfigure}
+%   \label{fig:sub1}
+% \end{subfigure}%
+% \begin{subfigure}{.5\textwidth}
+%   \centering
+%   \includegraphics[width=.4\linewidth]{image1}
+%   \caption{A subfigure}
+%   \label{fig:sub2}
+% \end{subfigure}
+% \caption{A figure with two subfigures}
+% \label{fig:test}
+% \end{figure}
+
+% \begin{figure}
+% \centering
+% \begin{minipage}{.5\textwidth}
+%   \centering
+%   \includegraphics[width=.4\linewidth]{image1}
+%   \captionof{figure}{A figure}
+%   \label{fig:test1}
+% \end{minipage}%
+% \begin{minipage}{.5\textwidth}
+%   \centering
+%   \includegraphics[width=.4\linewidth]{image1}
+%   \captionof{figure}{Another figure}
+%   \label{fig:test2}
+% \end{minipage}
 % \end{figure}
