@@ -2,7 +2,7 @@
 
 \section{Solução Geral}
 
-A solução encontrada pela equipe foi de modernizar a compra de picolés, tornando o processo mais rápido, acessível e de maior qualidade. A equipe de software está construindo um sistema de comunicação através de um \textit{WebService}, e este \textit{WebService} se comunica com um \textit{webapp} com diferentes informações para clientes, vendedores e administradores.
+A solução encontrada pela equipe foi de modernizar a compra de picolés, tornando o processo mais rápido, acessível e de maior qualidade. A equipe de software está construindo um sistema de comunicação através de um \textit{WebService}, e este \textit{WebService} se comunica com um \textit{WebApp} com diferentes informações para clientes, vendedores e administradores.
 
 A parte eletrônica da máquina de vendas está integrada a um sistema de localização GPS e contará com um sistema de segurança com alarmes sonoros capazes de alertar o vendedor de algum furto ou chamar a atenção dos clientes próximos. O sistema de sensoriamento será totalmente integrado ao sistema de refrigeração para manter a temperatura interna numa faixa ótima de operação e evitar o degelo dos picolés.
 
@@ -14,7 +14,7 @@ A seguir detalhou-se as soluções de cada sub área.
 
 \section{Solução de Software}
 
-O subsistema de software é composto por um \textit{webservice} e um \textit{webapp}, dividido entre interface para administrador, vendedor e cliente. O \textit{webapp} fará comunicação com o \textit{webservice}, responsável por toda a lógica do sistema, e também será construído pela equipe de software.
+O subsistema de software é composto por um \textit{WebService} e um \textit{WebApp}, dividido entre interface para administrador, vendedor e cliente. O \textit{WebApp} fará comunicação com o \textit{WebService}, responsável por toda a lógica do sistema, e também será construído pela equipe de software.
 
 A seção do administrador permite o cadastro de máquinas e vendedores, sabores de picolés e seus preços. A do vendedor permite a manutenção do estoque de picolés, ou seja, ele pode adicionar ou remover sabores já existentes à sua máquina. Outra funcionalidade, para ambos, é gerar relatórios sobre vendas e formas de pagamento.
 
@@ -25,7 +25,7 @@ O papel de vendedor, no projeto, significa um responsável por uma máquina. Ele
 \begin{itemize}
 	\item Formas de pagamento:
     \begin{itemize}
-        \item \textbf{Cartão:} Integração com um gateway de pagamento, para possibilitar o pagamento em cartão. O webapp não armazenará os dados de cartão do cliente em hipótese alguma.
+        \item \textbf{Cartão:} Integração com um gateway de pagamento, para possibilitar o pagamento em cartão. O WebApp não armazenará os dados de cartão do cliente em hipótese alguma.
   	\end{itemize}
 
 	\item Integração com outros serviços:
@@ -43,6 +43,7 @@ O papel de vendedor, no projeto, significa um responsável por uma máquina. Ele
 \end{itemize}
 
 \subsection{WebService}
+
 Para o desenvolvimento do \textit{WebService} o grupo escolheu o \textit{framework} \textit{Django}, que é escrito na linguagem \textit{Python}, pois é \textit{open source} e altamente testado pela comunidade, que permite o desenvolvimento robusto e ágil de aplicações \textit{web}. Além disso, boa parte do grupo possui familiaridade com esta tecnologia.
 
 O projeto divide-se em várias classes, sendo elas: \textit{Popsicle}, \textit{Machine}, \textit{Location}, \textit{User}, \textit{Stock}, \textit{Transaction}, \textit{Purchase}, \textit{PopsicleRemoval}, \textit{PopsicleEntry}. Seu relacionamento é demonstrado no seguinte diagrama de classes (Figura \ref{fig:diagrama_classes}).
@@ -51,7 +52,7 @@ O projeto divide-se em várias classes, sendo elas: \textit{Popsicle}, \textit{M
 % \centering
 % \includegraphics[width=\textwidth]{figuras/diagrama_classes}
 % \caption{Diagrama de Classes}
-% \label{fig:diagram_classes}
+% \label{fig:diagrama_classes}
 % \end{figure}
 
 \begin{itemize}
@@ -66,12 +67,16 @@ O projeto divide-se em várias classes, sendo elas: \textit{Popsicle}, \textit{M
 \item \textit{PopsicleRemoval} representa a remoção de picolés da máquina.
 \end{itemize}
 
-Além da arquitetura cliente-servidor, decidiu-se utilizar a arquitetura em camadas, bem típica de aplicações \textit{web}, no \textit{webservice}. O meio de interação entre o webapp e o servidor é uma API \textit{RESTful}.
+Além da arquitetura cliente-servidor, decidiu-se utilizar a arquitetura em camadas, bem típica de aplicações \textit{web}, no \textit{WebService}. O meio de interação entre o WebApp e o servidor é uma API \textit{RESTful}.
 
 O código da API desenvolvido encontra-se no \href{http://github.com/pi2-picole/api}{repositório} do grupo.
 
 
 \subsection{WebApp}
+
+O WebApp, como descrito anteriormente, a interface com usuário e se comunica com o WebService.
+
+Nas seções a seguir está descrito como foi feita a implementação do mesmo.
 \subsection{Implementação}
 
 \subsubsection{Tecnologias}
@@ -79,12 +84,11 @@ O código da API desenvolvido encontra-se no \href{http://github.com/pi2-picole/
 As tecnologias utilizadas para a construção da interface que irá interagir diretamente com o cliente estão dispostas nesta seção. São elas:
 
 \begin{itemize}
-\item \textbf{Javascript:} As requisições para o \textit{webservice} foram feitas com o uso de uma biblioteca javascript denominada Jquery. A bilioteca foi utilizada para fazer tanto requisições do tipo GET, quanto do tipo POST. É por meio das requisições que se atualizam informações como estoque atual, localização das máquinas e faz todos os cadastros do sistema, em resumo, todas as interações que precisam atualizar o banco de dados e serviço de localização. Todos os eventos dinâmicos foram feitos na linguagem javascript.
+\item \textbf{Javascript:} As requisições para o \textit{WebService} foram feitas com o uso de uma biblioteca javascript denominada Jquery. A bilioteca foi utilizada para fazer tanto requisições do tipo GET, quanto do tipo POST. É por meio das requisições que se atualizam informações como estoque atual, localização das máquinas e faz todos os cadastros do sistema, em resumo, todas as interações que precisam atualizar o banco de dados e serviço de localização. Todos os eventos dinâmicos foram feitos na linguagem javascript.
 \item \textbf{Google maps API:} A sigla API significa \textit{Application Programming Interface}, a google oferece diferentes APIs para serviços de localização, a utilizada no projeto é a API javascript do google maps, e os recursos são utilizados para obter a localização do usuário, a localização das máquinas através de latitude e longitude e calcular a rota até a máquina que o usuário escolher para efetivar a compra.
-\item\textbf{ html 5 + css 3:} Foram utilizadas para a construção de toda a interface com o usuário. A parte da aplicação que usário realmente vê e interage é a que foi feita em html+css. Como a aplicação final é um \textit{webapp} a responsividade é indiscutivelmente importante, a aplicação tem que se comportar perfeitamente em dispositivos móveis, o html e o css são os responsáveis pela aplicação está completamente responsiva.
+\item\textbf{ html 5 + css 3:} Foram utilizadas para a construção de toda a interface com o usuário. A parte da aplicação que usário realmente vê e interage é a que foi feita em html+css. Como a aplicação final é um \textit{WebApp} a responsividade é indiscutivelmente importante, a aplicação tem que se comportar perfeitamente em dispositivos móveis, o html e o css são os responsáveis pela aplicação está completamente responsiva.
 \item\textbf{Git:} O Git é um sistema de controle de versão distribuído gratuito, permite controlar as versões do código e que várias pessoas trabalhem na mesma funcionalidade.
 \end{itemize}
-
 
 A área de compra para o cliente, ficou de acordo com o definido na solução, e a interface do usuário ficou da seguinte forma:
 
@@ -100,7 +104,7 @@ A área de compra para o cliente, ficou de acordo com o definido na solução, e
 %     \label{fig:Página Inicial}
 % \end{figure}
 
-Essa é a tela inicial do webapp, proporcionando uma primeira idéia do que se trata o site.
+Essa é a tela inicial do WebApp, proporcionando uma primeira idéia do que se trata o site.
 
 \item{Mapa de máquinas}
 
@@ -147,6 +151,18 @@ Selecionada a máquina na qual se deseja fazer a compra, e clicando no marcador 
 % \end{figure}
 
 Após selecionados, e clicado no botão, a tela de pagamento é mostrada, o cliente deve entrar com os seus dados e finalizar a compra.
+
+\item{Botão para liberação}
+
+% \begin{figure}[H]
+% 	\centering
+%     \includegraphics[width=\textwidth]{figuras/botao}
+%     \caption{Tela De Liberação}
+%     \label{fig:Tela de pagamento}
+% \end{figure}
+
+Nesta tela, é possível ver o botão no qual se faz a liberação dos picolés.
+
 
 Como definido anteriormente, foram definidos cadastros e estoque para as áreas de vendedor e administrador. As interfaces de cadastro e estoque são as seguintes:
 
@@ -252,7 +268,7 @@ Os capacitores de 100 nF e 2200 $\mu$F servem para filtrar \textit{ripples} (osc
 
 \subsubsection{Teste}
 
-O circuito foi testado na protboard e funcionou com sucesso. As quatro saídas estão gerando sinais estáveis, o áudio é de boa qualidade e a intensidade do som é suficiente para o projeto. A seguir, o circuito montado na protoboard:
+O circuito foi testado na protoboard e funcionou com sucesso. As quatro saídas estão gerando sinais estáveis, o áudio é de boa qualidade e a intensidade do som é suficiente para o projeto. A seguir, o circuito montado na protoboard:
 
 \begin{figure}[H]
 	\centering
@@ -275,7 +291,7 @@ Para a detecção de presença, é utilizado o sensor HC-SR04, o qual mede dist�
 
 Para a implementação dos sensores, utilizou-se plataforma UART do Arduino UNO. Para o sensor de temperatura, utilizou-se a seguinte montagem (criado com o software Fritzing):
 
-Para o sensor de temperatura, não se pode ligar o fio de dados diretamente no Arduino, pois pontos flutuantes podem ocorrer. Dessa forma, é necessário utilizar um resistor de pullup como mostrado na figura \ref{fritzing_temp}. Para o código, foi utilizado as bibliotecas OneWire.h, o qual é responsável por realizar o protocolo de comunicação serial de um fio (simplex, o sensor apenas envia dados) e DallasTemperature.h o qual recebe e trata os dados, fazendo a conversão para graus Celsius.
+Para o sensor de temperatura, não se pode ligar o fio de dados diretamente no Arduino, pois pontos flutuantes podem ocorrer. Dessa forma, é necessário utilizar um resistor de pullup como mostrado na figura \ref{fig:fritzing_temp}. Para o código, foi utilizado as bibliotecas OneWire.h, o qual é responsável por realizar o protocolo de comunicação serial de um fio (simplex, o sensor apenas envia dados) e DallasTemperature.h o qual recebe e trata os dados, fazendo a conversão para graus Celsius.
 
 Já, o princípio de funcionamento dos sensores ultrassônicos está baseado na emissão de uma onda sonora de alta frequência, e na medição do tempo levado para a recepção do eco produzido quando esta onda se choca com um objeto capaz de refletir o som, ou seja, é capaz de medir distâncias emitindo uma onda sonora que rebate em um obstáculo e é detectada de volta. A detecção do eco incidente, depende de sua intensidade e esta da distância entre o objeto e o sensor ultrassônico. Os sensores ultrassônicos funcionam medindo o tempo de propagação do eco. Ou seja, o intervalo de tempo medido entre o impulso sonoro emitido e o eco do
 mesmo conforme a figura abaixo.
