@@ -2,7 +2,7 @@
 
 \section{Solução Geral}
 
-A solução encontrada pela equipe foi de modernizar a compra de picolés, tornando o processo mais rápido, acessível e de maior qualidade. A equipe de software está construindo um sistema de comunicação através de um WebService, e este WebService se comunica com dois tipos distintos de usuários: usuários clientes e usuário vendedor, cada qual com acesso a informações pertinentes que serão gerados pelo aplicativo.
+A solução encontrada pela equipe foi de modernizar a compra de picolés, tornando o processo mais rápido, acessível e de maior qualidade. A equipe de software está construindo um sistema de comunicação através de um \textit{WebService}, e este \textit{WebService} se comunica com um \textit{webapp} com diferentes informações para clientes, vendedores e administradores.
 
 A parte eletrônica da máquina de vendas está integrada a um sistema de localização GPS e contará com um sistema de segurança com alarmes sonoros capazes de alertar o vendedor de algum furto ou chamar a atenção dos clientes próximos. O sistema de sensoriamento será totalmente integrado ao sistema de refrigeração para manter a temperatura interna numa faixa ótima de operação e evitar o degelo dos picolés.
 
@@ -16,9 +16,11 @@ A seguir detalhou-se as soluções de cada sub área.
 
 O subsistema de software é composto por um \textit{webservice} e um \textit{webapp}, dividido entre interface para administrador, vendedor e cliente. O \textit{webapp} fará comunicação com o \textit{webservice}, responsável por toda a lógica do sistema, e também será construído pela equipe de software.
 
-A seção do administrador permite o cadastro de máquinas e vendedores. A do vendedor permite a manutenção do estoque de picolés, podendo cadastrar diferentes sabores e quantidades, a qualquer momento. Outra funcionalidade, para ambos, é gerar relatórios sobre vendas e formas de pagamento.
+A seção do administrador permite o cadastro de máquinas e vendedores, sabores de picolés e seus preços. A do vendedor permite a manutenção do estoque de picolés, ou seja, ele pode adicionar ou remover sabores já existentes à sua máquina. Outra funcionalidade, para ambos, é gerar relatórios sobre vendas e formas de pagamento.
 
-A seção para o cliente tem apenas a função de compra, podendo selecionar o vendedor e sabor dos picolés que deseja comprar. Após determinado a quantidade dos sabores desejado o cliente insere o número do cartão de crédito e efetua a compra. Após confirmação do pagamento, o aplicativo libera um botão, o qual é responsável pela liberação do picolé. Com o botão liberado, o cliente se dirige até a máquina de vendas em questão no momento que desejar e pressiona o botão, com isso, os picolés comprados serão liberados e o usuário poderá retirar seu pedido. Além disso, o cliente pode traçar uma rota para a máquina de vendas que escolher.
+A seção para o cliente tem apenas a função de compra, podendo selecionar o vendedor e sabor dos picolés que deseja comprar. Após determinada a quantidade dos sabores desejados, o cliente insere o número do cartão de crédito e efetua a compra. Após confirmação do pagamento, o aplicativo libera um botão, que é responsável pela liberação do picolé. Com o botão liberado, o cliente se dirige até a máquina de vendas em questão no momento que desejar e pressiona o botão, liberando os picolés comprados. Além disso, o cliente pode traçar uma rota para a máquina de vendas que escolher.
+
+O papel de vendedor, no projeto, significa um responsável por uma máquina. Ele é quem decide os sabores que serão vendidos, e também deve se certificar de atualizar o estoque de cada sabor. Como sugerido na solução, o vendedor não precisa estar presente para nenhuma venda.
 
 \begin{itemize}
 	\item Formas de pagamento:
@@ -43,22 +45,25 @@ A seção para o cliente tem apenas a função de compra, podendo selecionar o v
 \subsection{WebService}
 Para o desenvolvimento do \textit{WebService} o grupo escolheu o \textit{framework} \textit{Django}, que é escrito na linguagem \textit{Python}, pois é \textit{open source} e altamente testado pela comunidade, que permite o desenvolvimento robusto e ágil de aplicações \textit{web}. Além disso, boa parte do grupo possui familiaridade com esta tecnologia.
 
-O projeto divide-se em várias classes, sendo elas: \textit{Popsicle}, \textit{Machine}, \textit{Location}, \textit{Transaction}, \textit{User}, \textit{Stock}. Seu relacionamento é demonstrado no seguinte diagrama de classes (Figura \ref{fig:diagrama_classes}).
+O projeto divide-se em várias classes, sendo elas: \textit{Popsicle}, \textit{Machine}, \textit{Location}, \textit{User}, \textit{Stock}, \textit{Transaction}, \textit{Purchase}, \textit{PopsicleRemoval}, \textit{PopsicleEntry}. Seu relacionamento é demonstrado no seguinte diagrama de classes (Figura \ref{fig:diagrama_classes}).
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{figuras/diagrama_classes}
- \caption{Estrutura do freezer depois do corte}
-\label{fig:freezer cortado}
-\end{figure}
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=\textwidth]{figuras/diagrama_classes}
+% \caption{Diagrama de Classes}
+% \label{fig:diagram_classes}
+% \end{figure}
 
 \begin{itemize}
 \item \textit{Popsicle} representa um sabor de picolé e seu preço
 \item \textit{Location} armazena as informações de latitude e longitude enviadas pelo GPS integrado à máquina
 \item \textit{Machine} possui a localização física da máquina e o estoque de picolé
 \item \textit{Stock} demonstra a quantidade de picolés de um determinado sabor, que existem em certa máquina.
-\item \textit{Transaction} corresponde a uma transação de entrada ou saída de picolés na máquina, é responsável por atualizar os estoques. Entrada quando o vendedor deseja adicionar picolés, saída quando há remoção de picolés da máquina, ex.: retirada de sabores, transferência de picolés para outra máquina, e vendas.
 \item \textit{User} simboliza um usuário do sistema, com informações como nome, login, senha e restrição de acesso (é administrador ou não). Como o cliente não precisará informar estes dados, somente administradores e vendedores são representados nesta classe.
+\item \textit{Transaction} É a classe base de uma transação, armazena a data e a quantidade de picolés que foram removidos ou adicionados a um carrinho.
+\item \textit{Purchase} corresponde a uma compra e herda de \textit{Transaction}.
+\item \textit{PopsicleEntry} armazena uma entrada de picolés no estoque.
+\item \textit{PopsicleRemoval} representa a remoção de picolés da máquina.
 \end{itemize}
 
 Além da arquitetura cliente-servidor, decidiu-se utilizar a arquitetura em camadas, bem típica de aplicações \textit{web}, no \textit{webservice}. O meio de interação entre o webapp e o servidor é uma API \textit{RESTful}.
@@ -88,58 +93,58 @@ A área de compra para o cliente, ficou de acordo com o definido na solução, e
 
 \subsubsection{Página Inicial}
 
-\begin{figure}[H]
-	\centering
-    \includegraphics[width=\textwidth]{figuras/inicio}
-    \caption{Página Inicial}
-    \label{fig:Página Inicial}
-\end{figure}
+% \begin{figure}[H]
+% 	\centering
+%     \includegraphics[width=\textwidth]{figuras/inicio}
+%     \caption{Página Inicial}
+%     \label{fig:Página Inicial}
+% \end{figure}
 
 Essa é a tela inicial do webapp, proporcionando uma primeira idéia do que se trata o site.
 
 \item{Mapa de máquinas}
 
-\begin{figure}[H]
-	\centering
-    \includegraphics[width=\textwidth]{figuras/map}
-    \caption{Mapa de máquinas}
-    \label{fig:Mapa de máquinas}
-\end{figure}
+% \begin{figure}[H]
+% 	\centering
+%     \includegraphics[width=\textwidth]{figuras/map}
+%     \caption{Mapa de máquinas}
+%     \label{fig:Mapa de máquinas}
+% \end{figure}
 
 Diretamente embaixo do item acima, se encontra o mapa, onde estão sendo mostradas as máquinas disponíveis para serem comprados os picolés.
 
 \item{Mapa de máquinas (Com Rota)}
 
-\begin{figure}[H]
-	\centering
-    \includegraphics[width=\textwidth]{figuras/rotas}
-    \caption{Mapa de máquinas, com rotas}
-    \label{fig:Mapa de máquinas, com rotas}
-\end{figure}
+% \begin{figure}[H]
+% 	\centering
+%     \includegraphics[width=\textwidth]{figuras/rotas}
+%     \caption{Mapa de máquinas, com rotas}
+%     \label{fig:Mapa de máquinas, com rotas}
+% \end{figure}
 
 Nesta figura se encontra a seleção de uma máquina e a definição da melhor rota para a máquina escolhida pelo cliente.
 
 
 \item{Seleção de sabores e quantidade}
 
-\begin{figure}[H]
-	\centering
-    \includegraphics[width=\textwidth]{figuras/quantidade}
-    \caption{Seleção de sabores}
-    \label{fig:Seleção de sabores}
-\end{figure}
+% \begin{figure}[H]
+% 	\centering
+%     \includegraphics[width=\textwidth]{figuras/quantidade}
+%     \caption{Seleção de sabores}
+%     \label{fig:Seleção de sabores}
+% \end{figure}
 
 Selecionada a máquina na qual se deseja fazer a compra, e clicando no marcador correspondente, o popup acima aparece, possibilitando ao cliente selecionar os sabores e as quantidades de cada um.
 
 
 \item{Tela de pagamento}
 
-\begin{figure}[H]
-	\centering
-    \includegraphics[width=\textwidth]{figuras/cartao}
-    \caption{Tela De Pagamento}
-    \label{fig:Tela de pagamento}
-\end{figure}
+% \begin{figure}[H]
+% 	\centering
+%     \includegraphics[width=\textwidth]{figuras/cartao}
+%     \caption{Tela De Pagamento}
+%     \label{fig:Tela de pagamento}
+% \end{figure}
 
 Após selecionados, e clicado no botão, a tela de pagamento é mostrada, o cliente deve entrar com os seus dados e finalizar a compra.
 
@@ -147,45 +152,45 @@ Como definido anteriormente, foram definidos cadastros e estoque para as áreas 
 
 \item{Cadastro de Máquinas}
 
-\begin{figure}[H]
-	\centering
-    \includegraphics[width=\textwidth]{figuras/cadastroMaquinas}
-    \caption{Cadastro de Máquinas}
-    \label{fig:CadastroMaquinas}
-\end{figure}
+% \begin{figure}[H]
+% 	\centering
+%     \includegraphics[width=\textwidth]{figuras/cadastroMaquinas}
+%     \caption{Cadastro de Máquinas}
+%     \label{fig:CadastroMaquinas}
+% \end{figure}
 
 Na área de administrador, é possível cadastrar máquinas por meio dessa interface.
 
 \item{Cadastro de Vendedor}
 
-\begin{figure}[H]
-	\centering
-    \includegraphics[width=\textwidth]{figuras/cadastroVendedor}
-    \caption{Cadastro de Vendedor}
-    \label{fig:CadastroMaquinas}
-\end{figure}
+% \begin{figure}[H]
+% 	\centering
+%     \includegraphics[width=\textwidth]{figuras/cadastroVendedor}
+%     \caption{Cadastro de Vendedor}
+%     \label{fig:CadastroMaquinas}
+% \end{figure}
 
 Nesta tela, é possível cadastrar vendedores.
 
 \item{Cadastro de Sabores}
 
-\begin{figure}[H]
-	\centering
-    \includegraphics[width=\textwidth]{figuras/cadastroSabores}
-    \caption{Cadastro de Sabores}
-    \label{fig:CadastroMaquinas}
-\end{figure}
+% \begin{figure}[H]
+% 	\centering
+%     \includegraphics[width=\textwidth]{figuras/cadastroSabores}
+%     \caption{Cadastro de Sabores}
+%     \label{fig:CadastroMaquinas}
+% \end{figure}
 
 Nesta tela, o administrador pode cadastrar sabores de picolé.
 
 \item{Estoque}
 
-\begin{figure}[H]
-	\centering
-    \includegraphics[width=\textwidth]{figuras/storage}
-    \caption{Gerenciamento de estoque}
-    \label{fig:CadastroMaquinas}
-\end{figure}
+% \begin{figure}[H]
+% 	\centering
+%     \includegraphics[width=\textwidth]{figuras/storage}
+%     \caption{Gerenciamento de estoque}
+%     \label{fig:CadastroMaquinas}
+% \end{figure}
 
 Nesta interface, o vendedor pode gerenciar seu estoque.
 
@@ -197,27 +202,29 @@ A parte eletrônica da máquina de vendas de picolé é dividida nos seguintes s
 
 \subsection{Sistema GPS e Segurança}
 
-A máquina de vendas terá um sistema de segurança utilizando-se um sistema de posicionamento global (GPS). O dispositivo GPS utilizado é o módulo da família de GPS U-blox stand-alone com chip GY-NEO6MV2 integrado. A plataforma escolhida para adquirir os dados de posicionamento foi o Arduino devido à facilidade de implementação com bibliotecas já prontas. A seguir, a foto do módulo:
-
-\begin{figure}[H]
-	\centering
-    \includegraphics[width=0.5\textwidth]{figuras/modulo_gps}
-    \caption{Módulo GPS da família U-blox}
-    \label{fig:GPS}
-\end{figure}
+A máquina de vendas terá um sistema de segurança utilizando-se um sistema de posicionamento global (GPS). O dispositivo GPS utilizado é o módulo da família de GPS U-blox stand-alone com chip GY-NEO6MV2 integrado. A plataforma escolhida para adquirir os dados de posicionamento foi o Arduino devido à facilidade de implementação com bibliotecas já prontas. 
 
 \subsubsection{Implementação}
 
-Para a comunicação do módulo integrado do GPS é necessário o uso de duas bibliotecas. A primeira delas é a SoftwareSerial.h, a qual permite a comunicação serial em outros pinos digitais do Arduíno utilizando o software.  uma vez que é necessário uma comunicação serial por software. Já a biblioteca TinyGps.h fornece as funcionalidades como posição e curso com códigos mais simples, ela também mantém o recurso em consumo baixo e evita a dependência de pontos flutuantes obrigatórios.
+Para a comunicação do módulo GPS, é necessário o uso de duas bibliotecas. A primeira delas é a SoftwareSerial.h, a qual permite a comunicação serial em outros pinos digitais do Arduino por meio de software, já que os dados transmitidos pelo módulo é via serial full-duplex de dois fios. Já a biblioteca TinyGps.h fornece as funcionalidades como posição e curso com códigos mais simples, além de manter o recurso em baixo consumo e tratar sinais de pontos flutuantes.
 
 \subsubsection{Teste}
+Para a realização do teste, utilizou-se a seguinte montagem (criado com o software Fritzing):
 
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.7\textwidth]{figuras/fritzing_arduino}
+    \caption{Esquema de montagem do GPS para teste no Arduino}
+    \label{fig:fritzing_arduino}
+\end{figure}
+
+O GPS funcionou como esperado e retornou os valores de latitude e longitude com perfeita precisão. Porém, seu alcance é limitado, pois o sinal do GPS na UNB Faculdade Gama é alcançada em alguns pontos específicos.  
 
 \subsection{Sistema de Som e Alarme}
 
-Para o sistema de segurança integrado ao projeto, é necessário emitir um aviso caso a máquina de vendas seja violado ou removido do local designado pelo vendedor. Além disso, há um assistente com voz automática para receber um cliente próximo à máquina de vendas e, quando não houver nenhuma pessoa por perto, o sistema emite uma propaganda do produto. O sistema de som é responsável por atender os clientes quando estes se aproximam, fazer propaganda e alarmar em caso de violação.
+Para o sistema de segurança integrado ao projeto, é necessário emitir um alarme caso a máquina de vendas seja violado ou removido do local designado pelo vendedor. Além disso, há um assistente com voz automática para receber um cliente próximo à máquina de vendas e, quando não houver nenhuma pessoa por perto, o sistema emite uma propaganda do produto. O sistema de som é responsável por atender os clientes quando estes se aproximam, fazer propaganda e alarmar em caso de violação.
 
-O circuito amplificador montado foi utilizando o circuito integrado TDA8571, o qual é um amplificador dedicado capaz de oferecer 40 W para até 4 alto falantes de 4 Ohms cada.
+Para isso, foi montado um circuito amplificador com o CI TDA8571, o qual é um amplificador dedicado capaz de oferecer 40 W para até 4 alto falantes de 4 Ohms cada. Como sua alimentação é de 12V DC, é ideal para o projeto.
 
 \subsubsection{Implementação}
 
@@ -225,7 +232,7 @@ O esquemático do circuito montado foi retirado do Datasheet \cite{mq2} e está 
 
 \begin{figure}[H]
 	\centering
-    \includegraphics[width=0.5\textwidth]{figuras/circuito_TDA}
+    \includegraphics[width=\textwidth]{figuras/circuito_TDA}
     \caption{Esquemático utilizado para o circuito do amplificador de som}
     \label{fig:circuito_TDA}
 \end{figure}
@@ -233,44 +240,87 @@ O esquemático do circuito montado foi retirado do Datasheet \cite{mq2} e está 
 O circuito integrado é constituído de 8 amplificadores ligados em ponte, como mostrado acima. Além disso, foi acrescentado um fusível de 8A e um diodo na entrada para proteção contra curto circuito e inversão de polaridade. Os pinos foram ligados conforme esquematizado a seguir:
 
 \begin{itemize}
-	\item \textbf{Pino 15:} É o pino de modo (mute e enable) que ativa ou desativa a saída. Foi ligado ao Raspberry para o controle de som.
+	\item \textbf{Pino 15:} Pino de modo (mute e enable) que ativa ou desativa a saída. Foi ligado ao Raspberry para o controle de som.
     \item \textbf{Pinos 3, 6, 18, 21:} Alimentação negativa (terra 0 V) de cada um dos amplificadores.
     \item \textbf{Pinos 1, 8, 16, 23:} Alimentação positiva de cada um dos amplificadores. Foi utilizado 12 V, que é a tensão da fonte disponível do projeto.
-    \item \textbf{Pinos 10, 11, 13, 14:} São as entradas de áudio. Como o áudio é o mesmo para todas as saídas, estes pinos foram ligados à mesma entrada.
-    \item \textbf{Pino 2, 4, 5, 7, 17, 19, 20, 22:} São as saídas de áudio. Foram ligados 4 alto falantes de .......
-
-    \item \textbf{Pino 15:}
-    \item \textbf{Pino 15:}
-    \item \textbf{Pino 15:}
+    \item \textbf{Pinos 10, 11, 13, 14:} São as entradas de áudio. Como o áudio é o mesmo para todas as saídas, estes pinos estão em curto-circuito. O áudio vem do Raspberry Pi.
+    \item \textbf{Pino 2, 4, 5, 7, 17, 19, 20, 22:} São as saídas de áudio. Foram ligados 4 alto falantes de 4 $\Omega$.
+    \item \textbf{Pino 12:} Pino GND, foi ligado ao 0 V.
 \end{itemize}
+
+Os capacitores de 100 nF e 2200 $\mu$F servem para filtrar \textit{ripples} (oscilações) repentinas na fonte. Os capacitores de 470 nF retira o nível DC nas entradas de áudio. 
+
+\subsubsection{Teste}
+
+O circuito foi testado na protboard e funcionou com sucesso. As quatro saídas estão gerando sinais estáveis, o áudio é de boa qualidade e a intensidade do som é suficiente para o projeto. A seguir, o circuito montado na protoboard:
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.7\textwidth]{figuras/Sistema_som_prot}
+    \caption{Circuito amplificador de som montado na protoboard}
+    \label{fig:Sistema_som_prot}
+\end{figure}
 
 \subsection{Sistema de Sensoriamento}
 
-O projeto exige duas medidas para garantir seu bom funcionamento: a temperatura interna do recipiente dos picolés em resfriamento e um detector de presença para atender um possível cliente e para o sistema de alarme.
+O projeto exige duas medidas para garantir seu bom funcionamento: a temperatura interna do recipiente dos picolés em resfriamento e um detector de presença para atender um possível cliente e economizar energia.
 
-	Para a medida de temperatura, utiliza-se o sensor DS18B20 (que opera de 3.3 a 5 volts) à prova d'água fabricado pela Maxim Integrated, o qual é ideal para medidas em temperaturas na faixa de -10ºC a 85ºC com precisão de 0.5ºC, obtendo uma faixa de operação ainda maior. Para o controle de acionamento do sistema de refrigeração usufruiu-se da plataforma UART do Arduíno UNO. A figura \ref{fig:sensor_temperatura} ilustra o sensor.
+Os sensores escolhidos são populares e amplamente utilizados em projetos com Arduino. Diante disso, várias bibliotecas foram criadas com grandes históricos de aprimoramento e, por isso, o Arduino foi escolhido para recolher e tratar os dados dos sensores, os quais devem ser enviados ao controlador geral (Raspberry Pi).
 
-\begin{figure}[H]
-	\centering
-    \includegraphics[width=0.5\textwidth]{figuras/sensor_temperatura}
-    \caption{Sensor de temperatura}
-    \label{fig:sensor_temperatura}
-\end{figure}
+Para a medida de temperatura, é utilizado o sensor DS18B20 à prova d'água fabricado pela Maxim Integrated, sendo ideal para medidas em temperaturas na faixa de -10º C a 85º C com precisão de 0.5º C, o qual é suficiente para o projeto.
 
-O instrumento de sensoriamento de presença é o sensor ultrassônico de distância HC-SR04 (que opera a 5 volts), o qual será utilizado para detectar clientes nos quatro lados do recipiente de vendas (utilizando assim, quatro sensores) e para detectar a liberação de um picolé. O mesmo possui um alcance máximo de 4 metros e mínimo de 2 centímetros, sendo ideal para a detecção de usuários que se aproximam da máquina de vendas \cite{mq3}. A figura \ref{fig:sensor_presenca} ilustra o sensor.
-
-\begin{figure}[H]
-	\centering
-    \includegraphics[width=0.4\textwidth]{figuras/sensor_presenca}
-    \caption{Sensor de presença}
-    \label{fig:sensor_presenca}
-\end{figure}
+Para a detecção de presença, é utilizado o sensor HC-SR04, o qual mede distância por meio de sinais ultrassônicos, sendo utilizado para detectar clientes nos quatro lados do recipiente de vendas (utilizando assim, quatro sensores). O sensor possui um alcance máximo de 4 metros e mínimo de 2 centímetros, sendo ideal para a detecção de usuários que se aproximam da máquina de vendas \cite{mq3}. A ideia de detectar uma pessoa por perto é economizar energia desligando-se o sistema visual quando não há ninguém por perto, além de dar boas vindas ao cliente com um assistente de voz, dando rápidas instruções de como efetuar uma compra.
 
 \subsubsection{Implementação}
 
-Para a implementação dos sensores, utilizou-se plataforma UART do Arduíno UNO e as bibliotecas disponíveis OneWire.h, DallasTemperature.h e Ultrasonic.h. A biblioteca DallasTemperature.h .....
+Para a implementação dos sensores, utilizou-se plataforma UART do Arduino UNO. Para o sensor de temperatura, utilizou-se a seguinte montagem (criado com o software Fritzing):
+
+Para o sensor de temperatura, não se pode ligar o fio de dados diretamente no Arduino, pois pontos flutuantes podem ocorrer. Dessa forma, é necessário utilizar um resistor de pullup como mostrado na figura \ref{fritzing_temp}. Para o código, foi utilizado as bibliotecas OneWire.h, o qual é responsável por realizar o protocolo de comunicação serial de um fio (simplex, o sensor apenas envia dados) e DallasTemperature.h o qual recebe e trata os dados, fazendo a conversão para graus Celsius.
+
+Já, o princípio de funcionamento dos sensores ultrassônicos está baseado na emissão de uma onda sonora de alta frequência, e na medição do tempo levado para a recepção do eco produzido quando esta onda se choca com um objeto capaz de refletir o som, ou seja, é capaz de medir distâncias emitindo uma onda sonora que rebate em um obstáculo e é detectada de volta. A detecção do eco incidente, depende de sua intensidade e esta da distância entre o objeto e o sensor ultrassônico. Os sensores ultrassônicos funcionam medindo o tempo de propagação do eco. Ou seja, o intervalo de tempo medido entre o impulso sonoro emitido e o eco do
+mesmo conforme a figura abaixo.
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.4\textwidth]{figuras/sensor_ultrasom}
+%  \caption{Sinais de Envio e Retorno do Sensor Ultrassônico}
+% \label{fig:sensor_ultrasom}
+% \end{figure}
+
+O sensor possui dois pinos de dados: o pino ECHO que fica em nível alto caso a onda seja detectada e nível baixo caso contrário. Com o pino TRIGGER, é possível emitir uma onda sonora com um pulso. Como visto na figura abaixo. 
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.4\textwidth]{figuras/trigger}
+%  \caption{Pulsos de Envio e Retorno do Sensor Ultrassônico}
+% \label{fig:trigger}
+% \end{figure}
+
+Logo, é possível medir o tempo levado para este processo e, consequentemente, medir a distância sabendo-se a velocidade do som. Foi utilizado a biblioteca Ultrasonic.h que já realiza essas conversões.
 
 \subsubsection{Testes}
+
+Para o sensor de temperatura, utilizou-se a seguinte montagem (criado com o software Fritzing):
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.8\textwidth]{figuras/fritzing_temp}
+    \caption{Montagem para o sensor de temperatura}
+    \label{fig:fritzing_temp}
+\end{figure}
+
+O sensor funcionou com sucesso. Um teste realizado foi colocá-lo num recipiente com água e gelo. A temperatura medida no monitor serial do Arduino foi de 0º C, o qual é o esperado.
+
+Para o sensor de presença, utilizou-se a seguinte montagem (criado com o software Fritzing):
+
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=0.8\textwidth]{figuras/fritzing_presenca}
+    \caption{Montagem para o sensor de presença}
+    \label{fig:fritzing_presenca}
+\end{figure}
+
+O sensor funcionou com sucesso. Vários testes foram realizados com diversos obstáculos. A distância aferida possuiu erro máximo de 5 cm para mais ou menos, o que é aceitável para sua aplicação.
 
 \subsection{Sistema dos Motores}
 Os picolés serão entregues por meio de um sistemas de molas similar a de máquinas de venda. Um picolé situado no meio de uma mola faz um movimento linear quando este se rotaciona, como ilustra a imagem \ref{fig:sistema_molas} a seguir:
@@ -282,10 +332,11 @@ Os picolés serão entregues por meio de um sistemas de molas similar a de máqu
     \label{fig:sistema_molas}
 \end{figure}
 
-Logo, é necessário inserir um motor ao final de cada mola e fazer o controle do giro para que os picolés caíam conforme o pedido do cliente. Para que se realizasse este objetivo, a proposta inicial se tratava da utilização de um motor do tipo servomotor, uma vez que teoricamente, este, possui o torque suficiente para movimentar a longa fileira de picolés situados na mola com uma precisão de uma volta (360\degree por venda). Uma outra justificava a facilidade de controle com apenas um fio, contudo na prática e durante os testes realizados notou-se uma imprecisão no giro quando se retirava a trava e alterava o potênciometro original por um resistor para que, o mesmo, conseguisse dar um volta completa de 360\degree. Devido a esses problemas, a nova escolha se trata de um motor encontrado em sucata. Este é um motor de passos TAMAGAWA SEIKIM do tipo TS3103N145, com 200 passos por revolução e torque de 6 Kgfcm, além de ser DC e com alimentação de 12V.
-Sabe-se que o motor de passos necessita de um driver, e para isso, montou-se o drive de controle constituído por resistores de 220 Ohms, transístores TIP41C e diodos N4007.
+Logo, é necessário inserir um motor ao final de cada mola e fazer o controle do giro para que os picolés caiam conforme o pedido do cliente. Para que se realizasse este objetivo, a proposta inicial se tratava da utilização de um motor do tipo servomotor, uma vez que possui torque suficiente para movimentar a longa fileira de picolés situados na mola com uma precisão de uma volta (360\degree por venda), além da facilidade de controle com apenas um fio. Contudo, os servomotores adquiridos não giravam continuamente, pois possuíam um limite de uma revolução completa. Ao realizar uma modificação retirando-se a trava, o servomotor perdeu precisão e bastante torque. A compra de servomotores de giro contínuo torna-se inviável para o projeto devido ao seu alto custo. Devido a esses problemas, a nova escolha se trata de um motor encontrado em sucata. Este é um motor de passos TAMAGAWA SEIKIM do tipo TS3103N145, com 200 passos por revolução, torque de 6 Kgfcm e alimentação de 12V DC. Estes dados foram retirados na etiqueta do próprio motor, já que seu Datasheet não foi encontrado por ser muito antigo.
 
-Esse drive é apresentado na figura \ref{fig:motor1}:
+Sabe-se que o motor de passos necessita de um driver e, para isso, montou-se o drive de controle constituído por resistores de 220 Ohms, transístores TIP41C e diodos 1N4007. O circuito do driver funciona de tal forma que, quando um nível de tensão da saída do Arduino (pinos 8, 9, 10 e 11) passa de nível lógico para nível lógico alto, a junção \textit{VBE} do transistor bipolar é diretamente polarizada, causando um fluxo de corrente no terminal coletor do mesmo. O transistor então funciona operando como chave eletrônica (regiões de corte e saturação), quando é a junção base-emissor é diretamente polarizada, é aplicado uma diferença de potencial na bobina do motor e o rotor é movimentado, e assim sucessivamente para a realização dos passos desejados.
+
+O esquemático desse drive (para cada motor) é apresentado na figura \ref{fig:motor1}:
 
 % \begin{figure}[H]
 % \centering
@@ -294,13 +345,48 @@ Esse drive é apresentado na figura \ref{fig:motor1}:
 % \label{fig:motor1}
 % \end{figure}
 
+O motor de passos TAMAGAWA SEIKIM do tipo TS3103N145 possui saída com seis terminais, os quais foram identificados com utilização do multímetro para correta conexão das bobinas no driver. Como a implementação proposta requer o funcionamento de quatro motores (para o controle de quatro molas), seria necessária a utilização de 16 pinos do microcontrolador (tendo em vista que dois terminais de cada motor são terminais comuns). Para solucionar esse problema, um circuito foi simulado e implementado para demultiplexar as entradas para as quatro saídas. Foram utilizados dois CI's 74HC139 (4 demux 1x4). A seleção de qual motor rotacionar é definida pelo código dependendo do sabor escolhido pelo cliente. 
+
+O esquemático utilizado em simulação do circuito completo de controle do motor, incluindo microcontrolador, circuito demultiplexador, drivers e motores, é mostrado na figura \ref{fig:motor_completo} a seguir:
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.4\textwidth]{figuras/motor_completo}
+%  \caption{Esquemático do circuito completo de controle dos motores de passos}
+% \label{fig:motor_completo}
+% \end{figure}
+
+\subsubsection{Implementação}
+
+Para implementação dos motores de passos juntos, foi montado o circuito em protoboard e utilizou-se a plataforma UART do Arduino UNO, de forma que a entrada é o sabor escolhido pelo cliente e o controlador realiza a revolução no motor da mola desejada para aquele determinado sabor. Para realizar a revolução no eixo do motor, foi utilizada a biblioteca padrão do Arduino UNO para motores de passos, a \textit{Stepper.h}. Sua implementação em software requer selecionar a velocidade de rotação em RPM,
+
+O código funciona da seguinte forma: um código de sabor é escolhido pelo cliente. O programa então entra em uma função condicional \textit{switch case} de quatro casos (quatro sabores) e em cada um dos casos, um dos motores será acionado e, caso o código seja incorreto, um novo código de sabor é requisitado. O que acontece, de fato, é que o mesmo sinal para revolução do motor sai em todos os casos pelos quatro pinos (pinos 8, 9, 10 e 11), e é função do circuito demultiplexador direcionar essas quatro saídas para o motor desejado, através da variável de seleção de 2 bits (quatro casos) escolhida nos pinos 3 e 4. 
+
+\subsubsection{Testes}
+
+O teste do circuito controlador dos motores de passos foi então feito. O sistema então responde de forma correta e eficiente. 
+
+A montagem em protoboard do circuito controlador dos motores pode ser mostrado na figura \ref{fig:circuito_motor_montado}
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.4\textwidth]{figuras/circuito_motor_montado}
+%  \caption{Circuito completo de controle dos motores de passos em protoboard}
+% \label{fig:circuito_motor_montado}
+% \end{figure}
+
+
+
+
 \subsection{Sistema do Acionamento do Compressor}
 
-A refrigeração do recipiente vai ser feita por meio de um compressor. Mantê-lo ligado o tempo todo não é viável devido à limitação da demanda energética. Para isso, será feito um controle de acionamento do compressor de acordo com os dados enviados pelo sensor de temperatura. Para ligar e desligar o compressor, será utilizado um módulo relé JQC-3F. O relé é um componente eletro mecânico capaz de realizar a função de uma espécie de chave selecionadora. Por meio dela, é possível fazer o acionamento de sistemas de alta potência com um controlador (i.e. Raspberry Pi) sem danificá-lo e puxar muita corrente.
+A refrigeração do recipiente vai ser feita por meio de um compressor. Mantê-lo ligado o tempo todo não é viável devido à limitação da demanda energética. Para isso, será feito um controle de acionamento do compressor de acordo com os dados enviados pelo sensor de temperatura. Para ligar e desligar o compressor, será utilizado um módulo relé JQC-3F. O relé é um componente eletromecânico capaz de realizar a função de uma espécie de chave selecionadora. Por meio dela, é possível fazer o acionamento de sistemas de alta potência com um controlador sem danificá-lo e puxar muita corrente.
+
+Como o controlador utilizado para adquirir dados do sensor de temperatura é o Arduino, convém utilizá-lo também para fazer o acionamento do relé. Para isso, convencionou-se uma faixa de temperaturas entre -2º C e 2º C. Quando a temperatura atingida for menor que -2º C, o compressor é desligado. Quando a temperatura atingida for maior que 2º C, o compressor é religado.
 
 \subsection{Sistema de Interface Visual}
 
-A ideia central da máquina de vendas é a sua capacidade de realizar vendas de picolé sem um vendedor presente pelo aplicativo de celular. Portanto, convém utilizar um sistema visual na qual poderá mostrar informações ao usuário tais como:
+A ideia central da máquina de vendas é a sua capacidade de realizar vendas de picolé pelo aplicativo de celular sem um vendedor presente. Portanto, convém utilizar um sistema visual na qual poderá mostrar informações ao usuário tais como:
 
 \begin{itemize}
   \item O estoque dos sabores dos picolés;
@@ -309,29 +395,110 @@ A ideia central da máquina de vendas é a sua capacidade de realizar vendas de 
   \item Fazer propaganda do produto.
 \end{itemize}
 
-Para isso, haverá uma tela LCD embutido no máquina de vendas de fácil visualização para os clientes.
+Para isso, há uma tela LCD de 7 polegadas embutido na máquina de vendas de fácil visualização para os clientes. Essa tela vem com um driver que recebe um sinal de vídeo por HDMI proveniente do Raspberry Pi. Para economizar energia, a tela será acionada quando uma pessoa for detectada pelo sensor de presença.
+
+\subsection{Bancada de Testes para os Sistemas Eletrônicos}
+
+Essa subseção apresenta o protótipo de teste para os sistemas propostos neste relatório. Na bancada de testes, inseriu-se todos os sistemas eletrônicos propostos para validação, implementação e testes, como mostrado na figura  \ref{fig:bancada_teste_eletronica}.
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.4\textwidth]{figuras/bancada_teste_eletronica}
+%  \caption{Bancada de Testes para os Sistemas Eletrônicos}
+% \label{fig:bancada_teste_eletronica}
+% \end{figure}
+
+A imagem da tela do monitor serial (UART) do Arduino pode ser mostrada na figura \ref{fig:serialmonitor_motor}
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.4\textwidth]{figuras/serial_bancada}
+%  \caption{Monitor serial para sistema eletrônico integrado}
+% \label{fig:serial_bancada}
+% \end{figure}
+
+A bancada de testes é um instrumento para validação mais precisa antes da implementação dos sistemas em uma PCB mais robusta, uma vez que, todos eles, devem ser testados antes do protótipo final que será entregue no Ponto de Controle 3.
 
 \subsection{Integração de Todos os Sistemas Eletrônicos}
+ Esta seção apresenta a integração dos sistemas e, por consequência, o sistema de controle do produto. Para isso, de forma sucinta,  utilizou-se o Raspberry Pi 3 e o Arduino UNO.
 
-O controlador escolhido para integrar todos os sistemas será o Raspberry Pi 3, o qual é possui um computador que possui um processador ARM de 1.2 GHz 64 bit, 1 Gb de RAM e bluetooth. Ficou popular por ser intuitivo de utilizar, o que fez com que seja utilizado no mundo inteiro em diversos projetos eletrônicos. Possui capacidade de embutir um sistema operacional como o Linux, o que pode tornar o sistema mais estável e com menos memória de uso. Sua escolha se justifica pelo fato de conter todos os requisitos exigidos para cada sistema, tais como:
+\subsubsection{Raspberry Pi 3}
+
+O controlador escolhido para integrar todos os sistemas é o Raspberry Pi 3, o qual é um computador com um processador ARM de 1.2 GHz 64 bit, 1 Gb de RAM e Bluetooth. É um controlador popular, uma vez que, é de fácil intuição a sua aprendizagem. Possui capacidade de embutir um sistema operacional como o Linux, o que pode tornar o sistema mais estável e com menos memória de uso. Sua escolha se justifica pelo fato de conter todos os requisitos exigidos para cada sistema, tais como:
 
 \begin{itemize}
-  \item Possui entradas e saídas digitais as quais podem ser usadas para controle dos sistemas GPS e controle dos motores e controle do sensoriamento;
+  \item Possui entradas e saídas digitais as quais podem ser usadas para controle dos sistemas GPRS;
   \item Possui saída de áudio para o sistema de som;
-  \item Possui saída de vídeo para o sistema de interface com o usuário.
+  \item Possui saída de vídeo para o sistema de interface com o usuário;
+  \item Possui entradas TX e RX que permitem a comunicação serial com o outro microcontrolador, no caso específico, o Arduino.
 \end{itemize}
 
-Além disso, depois de projetado e testado cada sistema, será confeccionado no final uma \textbf{placa de circuito impresso (PCI)} para conter todos os circuitos de forma compacta, já que o espaço do projeto é limitado.
+\subsubsection{Arduino}
+O Arduino é uma plataforma eletrônica de hardware livre e de placa única, integrada a um microcontrolador ATMEL AVR com suporte de entrada/saída embutido, é constituído de uma linguagem de programação padrão e de fácil utilização, de origem em Wiring, e é, basicamente, C/C++. Este microcontrolador tem uma plataforma UART (Universal Asynchronous Receiver/Transmitter), a qual é um bloco de circuitos
+responsável pela implementação da comunicação serial. De forma geral, o UART atua como um mediador entre interfaces paralelas e em série. Como demonstrada na figura a seguir.
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.4\textwidth]{figuras/uart}
+%  \caption{ Modelo simplificador da Plataforma UART}
+% \label{fig:uart}
+% \end{figure}
+
+Como pode ser visto na figura, uma das extremidades do UART é um barramento de oito linhas de dados e alguns pinos de controle, a outra é formada pelos fios de transmissão e recepção em série (TX e RX). Este microcontrolador por ser acessível financeiramente e também de fácil implementação, além de reter diversas bibliotecas de uso livre, o que abrange e facilita a execução do projeto aqui apresentado.
+
+O Arduino foi utilizado para controlar e tratar sinais dos sistemas de sensoriamento, localização e acionamento do compressor. Para isso, é necessário juntar todos em um controlador Arduino apenas e adaptar o código para isso. Primeiramente, foi feito a análise da quantidade de pinos que serão utilizados:
+
+\begin{table}[H]
+\centering
+\caption{Quantidade de pinos utilizados para ligar no Arduino}
+\label{pinos_arduino}
+\begin{tabular}{|l|c|c|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Dispositivo}} & \multicolumn{1}{l|}{\textbf{Quantidade}} & \multicolumn{1}{l|}{\textbf{Pinos}} \\ \hline
+Sensor de temperatura                      & 1                                        & 1                                   \\ \hline
+Sensor de presença                         & 4                                        & 8                                   \\ \hline
+Módulo Relé                                & 1                                        & 1                                   \\ \hline
+Módulo GPS                                 & 1                                        & 2                                   \\ \hline
+Comunicação Serial                         & 1                                        & 2                                   \\ \hline
+Controle dos motores                       & 4                                        & 6                                   \\ \hline
+\textbf{Total:}                            & -                                        & 20                                  \\ \hline
+\end{tabular}
+\end{table}
+
+Como representado pela tabela acima, são necessários 20 pinos para ligar no Arduino. Logo, pode-se utilizar o Arduino UNO que dispõe de 20 pinos GPIO por meio do microcontrolador ATmega328, o qual pode ser removido da placa e acoplada numa placa de circuito impresso.
+
+Um código foi implementado para integrar todos os dispositivos e funcionou com sucesso. A imagem a seguir é a saída do monitor serial para testar o protótipo:
+
+
+\subsubsection{ Implementação do Sistema de Controle: Raspberry Pi 3 e Arduino UNO}
+
+Após conhecer o computador de bordo e o microcontrolador utilizado, detalha-se aqui o processo de comunicação entre os mesmos. 
+De forma concisa, a comunicação acontece entre os pinos  0 (RX) e 1 (TX) do Arduino Uno, e os pinos 10 (RX) no Raspberry Pi e 8 (TX) na GPIO. 
+
+Entretanto, sabe-se que o Raspberry opera com 3.3V e necessita-se que o Arduíno opere a nível de sinal de 3.3V para envio do sinal \textit{Arduino (TX) -> Raspberry (RX)}, para que isso aconteça de forma eficiente, utiliza-se um divisor de tensão simples realizados com dois resistores de 10K. Apesar disso, a comunicação inversa, \textit{Raspberry (TX) -> Arduino (RX)}, pode ser direta, uma vez que o Arduíno opera em 5V e pode, descomplicadamente, interpretar o sinal do Raspberry. Ademais, acrescenta-se outro resistor de 10K para o pull-down do push-button A montagem do circuito para a comunicação pode ser visualizada na figura \ref{fig:comunicacao_rasp_arduino}.
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.4\textwidth]{figuras/comunicacao_rasp_arduino}
+%  \caption{Esquemático para a Comunicação entre os controladores utilizados, realizados pela ferramente Fritzing}
+% \label{fig:comunicacao_rasp_arduino}
+% \end{figure}
+
+%Além da execução do circuito, necessita-se configurar os ambientes antes mesmos de ligá-los. Para isso abriu-se no Raspberry a janela LXTerminal e editou-se o arquivo \textit{"/etc/inittab"}, acrescentando \textit{"#T0:23:respawn:/sbin/getty -L ttyAMA0 115200 vt100"}. Em seguida, o Raspberry foi reiniciado. 
+Em seguida, verifica a comunicação entre os dois, onde, no Arduino é setado a velocidade de transmissão, configurada a porta serial, definida o pino do botão de entrada e o código do sistema. Após isso, a comunicação está pronta.
+
 
 \subsection{Integração entre Software e Hardware}
-A comunicação entre software e hardware será feita via internet e, para isso, será utilizado o módulo GSM GPRS SIM900 fabricado pela SIMCom. O módulo interligado à Raspberry PI 3 utilizará um cartão SIM para conexão com a internet e, dessa forma, a comunicação com o sistema de software será estabelecida.
+A comunicação entre software e hardware será feita via internet e, para isso, é utilizado o módulo GSM GPRS SIM800L fabricado pela SIMCom. O módulo interligado à Raspberry PI 3 utiliza um cartão SIM para conexão com a internet e, dessa forma, a comunicação com o sistema de software é estabelecida.
 
 \begin{figure}[H]
 	\centering
     \includegraphics[scale=0.25]{figuras/modulo_gprs}
-    \caption{Módulo GPRS SIM900 (SIMCom)}
+    \caption{Módulo GPRS SIM800L (SIMCom)}
     \label{fig:modulo_gprs}
 \end{figure}
+
+Esse sistema é responsável pelo funcionamento do produto final, uma vez que o servidor recebe informações de localização e segurança, e, também, o cliente compra via WebApp e o produto deve ser retirado em meio físico. O que torna necessário a utilização do GPRS e desta outra integração. 
 
 \section{Solução de Estrutura}
 
@@ -374,41 +541,44 @@ Como dito anteriormente, foi escolhido uma estrutura estática com acoplamento p
 
  \begin{itemize}
 \item Estrutura de suporte das placas solares
+
 A estrutura para o suporte da placa solar ainda não foi construído devido ao fato da mesma não ter sido ainda integrada ao sistema.
 \item Mecanismos para venda automatizada de picolé
 
-O mecanismo para entrega dos picolés será composto por quatro espirais feitas em aço inox encaixadas dentro do freezer e controladas por servo motores. Entre as espirais seram construídas paredes em policloreto de vinil (PVC) para manter os picolés alinhados. Ao girar a espiral, os picolés serão empurrados na direção de uma cavidade que foi feita no fundo do freezer, derrubando o picolé dentro de uma caixa que também possuirá isolamento térmico e será onde o cliente terá acesso ao produto.
+O mecanismo para entrega dos picolés será composto por quatro espirais feitas em aço inox encaixadas dentro do freezer e controladas por motores de passo. Entre as espirais seram construídas paredes em policloreto de vinil (PVC) para manter os picolés alinhados. Ao girar a espiral, os picolés serão empurrados na direção de uma cavidade que foi feita no fundo do freezer, derrubando o picolé dentro de uma caixa que também possuirá isolamento térmico e será onde o cliente terá acesso ao produto.
+\item Dimensionamento da estrutura 
 
-Aferiu-se as massas de cada um dos elementos dos subsistemas da máquina. Com tais dados foi possível determinar o CG (centro de gravidade) da estrutura, de modo a averiguar a estabilidade da mesma. As coordenadas do CG podem estão destacadas na figura \ref{fig:cad_vista_lateral}.
+Aferiu-se as massas de cada um dos elementos dos subsistemas da máquina. Com tais dados foi possível determinar o CG (centro de gravidade) da estrutura, de modo a averiguar a estabilidade da mesma. As coordenadas do CG podem estão destacadas na figura \ref{fig:cad_vista_lateral} em centímetros. Para obter informações mais detalhadas do dimensionamento da estrutura, vide anexo \label{app:visao_explodida}.
 
    \begin{figure}[H]
 	\centering
     \includegraphics[width=0.8\textwidth]{figuras/cad_vista_lateral}
-    \caption{Vista lateral em corte indicando o centro de massa}
+    \caption{Vista lateral em corte indicando o centro de massa [cm].}
     \label{fig:cad_vista_lateral}
 \end{figure}
+
 
 \item Compartimentos da máquina de vendas
 
 A máquina de vendas possui três compartimentos principais que podem ser vistos na figura \ref{fig:cad_ZONAS}: compartimento para baterias e compressor (1), compartimento para os componentes eletrônicos (2), compartimento do freezer com isolamento térmico (3) e armazenamento temporário dos picolés (4).
 
-   \begin{figure}[H]
-	\centering
-    \includegraphics[width=0.4\textwidth]{figuras/cad_ZONAS}
-    \caption{Compartimentos dedicados.}
-    \label{fig:cad_ZONAS}
-\end{figure}
+%    \begin{figure}[H]
+% 	\centering
+%     \includegraphics[width=0.4\textwidth]{figuras/cad_ZONAS}
+%     \caption{Compartimentos dedicados.}
+%     \label{fig:cad_ZONAS}
+% \end{figure}
 
-A porta superior foi construída e parte das prateleiras para o posicionamento dos subsistemas já foram montadas como pode ser observado na figura \ref{fig:armario_vista_isometrica}.
+A porta superior foi construída e parte das prateleiras para o posicionamento dos subsistemas já foram montadas como pode ser observado na figura \ref{fig:armario_vista_isometrica}. O desenho técnico da estrutura completa encontra-se no anexo \ref{app:estante}.
 
 % Atualizar a figura da estrutura de MDF
 
-   \begin{figure}[H]
-	\centering
-    \includegraphics[width=0.4\textwidth]{figuras/armario_vista_isometrica}
-    \caption{Estrutura em MDF}
-    \label{fig:armario_vista_isometrica}
-\end{figure}
+%    \begin{figure}[H]
+% 	\centering
+%     \includegraphics[width=0.4\textwidth]{figuras/armario_vista_isometrica}
+%     \caption{Estrutura em MDF}
+%     \label{fig:armario_vista_isometrica}
+% \end{figure}
 
 \item Freezer
 
@@ -416,81 +586,176 @@ O freezer foi adaptado a partir de uma estrutura doada (fig. \ref{fig:freezer}) 
 
 % Figura antiga do freezer
 
-   \begin{figure}[H]
-	\centering
-    \includegraphics[width=0.4\textwidth]{figuras/freezer}
-    \caption{Estrutura base do freezer}
-    \label{fig:freezer}
-\end{figure}
+%    \begin{figure}[H]
+% 	\centering
+%     \includegraphics[width=0.4\textwidth]{figuras/freezer}
+%     \caption{Estrutura base do freezer}
+%     \label{fig:freezer}
+% \end{figure}
 
 A tampa que já estava presa ao freezer era instável e extremamente pesada, portanto optou-se por retirá-la e construir uma nova tampa para a estrutura. Além disso, os cortes necessários para o posicionamento da serpentina e para a queda dos picóles para outro compartimento foram feitos. O atual estado do freezer pode ser observado na figura \ref{fig:freezer_cortado}.
 
-   \begin{figure}[H]
-	\centering
-   \includegraphics[width=0.4\textwidth]{figuras/freezer_cortado}
-    \caption{Estrutura do freezer depois do corte}
-    \label{fig:freezer_cortado}
-	\end{figure}
+%    \begin{figure}[H]
+% 	\centering
+%    \includegraphics[width=0.4\textwidth]{figuras/freezer_cortado}
+%     \caption{Estrutura do freezer depois do corte}
+%     \label{fig:freezer_cortado}
+% 	\end{figure}
 
 \item Molas
 
 A príncipio as molas seriam usinadas com diâmetro e passo especificados na figura \ref{fig:molas_dimensoes}). No entanto, a empresa de máquina de vendas Diletto Café emprestou molas (fig. \ref{fig:mola}) de aço inox  para o projeto, pois se tratando de uma máquina para alimentos a utilização de aço inoxidável é necessária afim de não contaminar o conteúdo perecível. A mola projetada apresentava espaço para 20 picolés, já a mola disponibilizada pela Diletto Café apresenta 19 espaços, possuindo perda de apenas 1 picolé por cada sabor. Logo, não apresenta grandes mudanças no estoque da máquina, além de ser uma solução mais econômica e com dimensões próximas as esperadas no projeto preliminar.
 
-Desenho técnico
+%    \begin{figure}[H]
+% 	\centering
+%    \includegraphics[width=\textwidth]{figuras/molas_dimensoes}
+%     \caption{Desenho técnico das molas dimensionadas}
+%     \label{fig:molas_dimensoes}
+% 	\end{figure}
 
-   \begin{figure}[H]
-	\centering
-   \includegraphics[width=0.4\textwidth]{figuras/molas_dimensoes}
-    \caption{Desenho técnico das molas dimensionadas}
-    \label{fig:molas_dimensoes}
-	\end{figure}
-
-Foto da mola
-
-   \begin{figure}[H]
-	\centering
-   \includegraphics[width=0.4\textwidth]{figuras/mola}
-    \caption{Mola utilizada no projeto}
-    \label{fig:mola}
-	\end{figure}
+%    \begin{figure}[H]
+% 	\centering
+%    \includegraphics[width=0.4\textwidth]{figuras/mola}
+%     \caption{Mola utilizada no projeto}
+%     \label{fig:mola}
+% 	\end{figure}
 
 \item Caixa da serpentina do compressor
 
-A serpentina do compressor (fig.\ref{fig: serpentina}) precisa estar dentro da região refrigerada, pois ela é a responsável pelo resfriamento do freezer. Levando isso em consideração, uma caixa de aço foi soldada para servir como uma extensão do freezer, viabilizando o posicionamento da serpentina logo abaixo da grade onde deslizam os picolés.
+A serpentina do compressor (\ref{fig:serpentina}) precisa estar dentro da região refrigerada, pois ela é a responsável pelo resfriamento do freezer. Levando isso em consideração, uma caixa de aço foi soldada para servir como uma extensão do freezer, viabilizando o posicionamento da serpentina logo abaixo da grade onde deslizam os picolés. O desenho técnico da região resfriada encontra-se no anexo \ref{app:freezer}.
 
-% Precisamos de uma foto da caixa da serpentina
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.4\textwidth]{figuras/serpentina}
-  \caption{CAD da serpentina}
-\label{fig:serpentina}
-\end{figure}
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.4\textwidth]{figuras/serpentina}
+%   \caption{CAD da serpentina}
+% \label{fig:serpentina}
+% \end{figure}
 
 \item Carrinho para o transporte da máquina de vendas
 
-	Para o transporte da máquina de vendas foi optado por uma estrutura simples e que pudesse ser acoplada à máquina durante seu transporte e depois desacoplada para assim poder ser reutilizada no transporte de outra máquina de vendas. Existe uma  estrutura já pronta no galpão que é similar à figura \ref{fig:Render_-_Carro_de_Transporte}.
+	A massa total para a máquina está estimada em 87 quilogramas, logo para o transporte da mesma será necessário o uso de um suporte auxiliar. Esta será uma estrutura simples e que possa ser acoplada à máquina durante seu transporte e depois desacoplada para assim poder ser reutilizada no transporte de outra máquina de vendas. Existe uma  estrutura já pronta no galpão que é similar à figura \ref{fig:Render_-_Carro_de_Transporte}.
 
-   \begin{figure}[H]
-	\centering
-    \includegraphics[width=0.4\textwidth]{figuras/Render_-_Carro_de_Transporte}
-    \caption{Estrutura base para o transporte da máquina de vendas}
-    \label{fig:Render_-_Carro_de_Transporte}
-\end{figure}
+%    \begin{figure}[H]
+% 	\centering
+%     \includegraphics[width=0.4\textwidth]{figuras/Render_-_Carro_de_Transporte}
+%     \caption{Estrutura base para o transporte da máquina de vendas}
+%     \label{fig:Render_-_Carro_de_Transporte}
+% \end{figure}
 
-\subsection{Análise de temperatura em regime transiente (ANSYS)}
+\subsection{Análise de temperatura em regime permanente e transiente (ANSYS)}
 
- Através do software STEADY STATE and TRANSIENT THERMAL - MECHANICAL ANSYS MULTIPHYSICS, foi possível realizar uma análise da transferência de calor no freezer, com o objetivo de analisar o sistema de isolamento térmico além do sistema de resfriamento do freezer, que deve manter o picolé em uma temperatura apropriada. O método utilizado neste programa é o MEF (Método dos Elementos Finitos), onde o objeto de análise é discretizado em finitos elementos e utiliza-se um método numérico para solucionar as equações diferenciais parciais que determinam a temperatura e fluxo de calor variando no tempo em cada elemento, para um intervalo de tempo pré-determinado.
+ Através dos softwares STEADY STATE e TRANSIENT THERMAL - MECHANICAL ANSYS MULTIPHYSICS, foi possível realizar uma análise da transferência de calor no freezer, com o objetivo de analisar o sistema de isolamento térmico além do sistema de resfriamento do freezer, que deve manter o picolé em uma temperatura apropriada. O método utilizado neste programa é o MEF (Método dos Elementos Finitos), onde o objeto de análise é discretizado em finitos elementos e utiliza-se um método numérico para solucionar as equações diferenciais parciais que determinam a temperatura e fluxo de calor variando no tempo em cada elemento, para um intervalo de tempo pré-determinado.
  Foram feitas algumas suposições e aproximações para possibilitar a análise da transferência de calor no sistema de refrigeração. Tais como:
 \begin{itemize}
 \item Representou-se a serpentina como uma caixa de volume aproximado;
-\item Para a analise da transferência de calor através do ar interno do freezer, quando este tinha uma velocidade diferente de zero, aumentou-se seu coeficiente de condução já que não poderia ser propriamente representado como um fluido em movimento.
-\item A serpentina foi representada por um sólido de temperatura constante durante a refrigeração do freezer, pois a serpentina é resfriada através de um fluido mantido em circulação pelo compressor, o que geraria complicações na simulação.
+\item Para a analise da transferência de calor através do ar interno do freezer, quando este tinha uma velocidade diferente de zero, aumentou-se seu coeficiente de condução já que não poderia ser propriamente representado como um fluido em movimento;
+\item A serpentina foi representada por um sólido de temperatura constante durante a refrigeração do freezer, pois a serpentina é resfriada por fluido refrigerante R-22 mantido em circulação pelo compressor, o que geraria complicações na simulação;
+\item Considerou-se a temperatura média da serpentina de -6,4\textdegree C, já que foi este o valor medido experimentalmente;
+\item Suprimiu-se as molas, picolés e divisões internas do freezer para simplificar as simulações.
 \end{itemize}
- Inicialmente, foi feita uma análise no Steady State Thermal Mechanical, para que o sistema de isolamento do freezer fosse estudado, onde considerou-se a temperatura da serpentina em -6,4\textdegree{}C, a temperatura ambiente em 22\textdegree{}C e convecção externa para ar estagnado (coeficiente de convecção de $5W/m^2\textdegree{}C$). Observou-se inicialmente que colocando-se isolamento dentro e fora do freezer, evitava que sua temperatura fosse mais baixa. Isso porque a presença de paredes de aço inox em contato direto com a serpentina, resfria consideravelmente o freezer.
+ As simulações feitas no regime estacionário tiveram as propriedades definidas como na tabela \ref{propestacionario}. Inicialmente pensou-se em isolar o freezer com isopor tanto externamente quanto internamente como na figura \ref{isolamento1}, além de utilizar PVC para forrar o freezer internamente. Porém observou-se, como mostrado na figura \ref{fig:isolamento_interno}, que a temperatura interna do freezer não baixava o suficiente. Logo optou-se por utilizar apenas isolamento externo como na figura \ref{isolamento2} e a nova simulação apresentou temperaturas bem mais baixas internamente, como mostrada na figura \ref{fig:sem_isolamento_interno}, confirmando que paredes de aço inox internamente era uma opção melhor. 
+ 
+ \begin{table}[]
+\centering
+\caption{Propriedades para a simulação em regime estacionário e transiente}
+\label{propestacionario}
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Propriedades para a simulação em regime estacionário}}       \\ \hline
+\textbf{Temperatura da Serpentina}   &  -6.4\textdegree C
+\\ \hline
+\textbf{Coeficiente de convecção exterior}    &    5W/$m^2$ \textdegree  C                 \\ \hline
+\textbf{Temperatura média do ar exterior}     & 22\textdegree C                             \\ \hline
+\end{tabular}
+\end{table}
 
+%     \begin{figure}[!htb]
+%     	\begin{floatrow}
+%         	\ffigbox{\includegraphics[scale=0.3]{figuras/isolamento1}}
+%{\caption{Freezer com isolamento interno e externo}}
+%     \label{fig:isolamento1}
+%             \ffigbox{\includegraphics[scale=0.3]{figuras/isolamento2}}{\caption{Freezer sem isolamento interno}}
+%     \label{fig:isolamento2}
+%         \end{floatrow}
+%     \end{figure}
+
+%     \begin{figure}[!htb]
+%     	\begin{floatrow}
+%         	\ffigbox{\includegraphics[scale=0.3]{figuras/isolamento_interno}}{\caption{Resultado da simulação do Freezer com isolamento interno}}
+%     \label{fig:isolamento_interno}
+%             \ffigbox{\includegraphics[scale=0.3]{figuras/sem_isolamento_interno}}{\caption{FResultado da simulação do Freezer sem isolamento interno}
+%     \label{fig:sem_isolamento_interno}
+%         \end{floatrow}
+%     \end{figure}
+
+\par O fato do freezer sem isolamento interno ser mais eficiente se deve ao fato do coeficiente de condução de calor do aço inox ser notavelmente mais alto do que o coeficiente de condução do isopor. Sendo assim, a presença de um isolamento interno no Freezer impede que as paredes do mesmo se mantenham resfriadas e, portanto, o ar interno é refrigerado apenas pela presença da serpentina. Quando não há isolamento interno, e o ar interno está diretamente em contato com as paredes de aço inox, que por sua vez estão em contato com a serpentina, o ar é refrigerado não apenas pela serpentina, mas também pelas paredes de aço que permanecem refrigeradas devido ao alto coeficiente de condução \cite{coeficiente}. 
+
+\par Porém, observou-se que, mesmo com paredes de aço inox, a temperatura do freezer ainda não era a requerida para a conservação dos picolés. Para garantir a correta refrigeração dos picolés, foi decido instalar um cooler acima da serpentina para circular o ar interno do freezer e assim, garantir uma melhor refrigeração. Para simular a presença do cooler, foi necessário acrescentar uma condição de contorno de convecção internamente no freezer. Sendo assim, de acordo com a velocidade do ar interno, pode-se determinar o coeficiente de convecção interno, a partir da seguinte equação \cite{convection}, onde v é a velocidade relativo do ar em relação às paredes do Freezer:
+
+$$
+    h = 10,45 - v + 10 \sqrt[]{v}
+$$
+
+Observando-se que a equação acima só poderia ser aplicada para velocidades do ar entre 2m/s e 20m/s, optou-se por simular uma velocidade mínima de 2m/s, determinando assim um coeficiente de convecção interno de $22,6 W/m^2\textdegree C $. Além da convecção interna, foi preciso estabelecer um coeficiente de condução maior para o ar interno, já que este não está mais estagnado com a presença do cooler. Já que o simulador utilizado não suporta o cálculo das propriedades através de um fluido como o ar, foi preciso fazer uma aproximação onde o coeficiente de condução do ar interno deveria reproduzir o correto fluxo de calor através da convecção interna. Sendo assim, definiu-se um coeficiente de condução igual a $4 W/m\textdegree C$, calculado a partir das seguintes equações \cite{equacoesCOEF}: 
+
+$$
+    q_k = kA {\Delta T\over x}
+$$
+Onde $q_k$ é o calor transferido por condução através de uma parede plana, k é o coeficiente de condução, A é a área de troca de referência, $ \Delta T$ é a diferença de temperatura representativa entre a superfície quente e a superfície fria, e x é a espessura da parede.
+$$
+    q_h = hA \Delta T
+$$
+Onde $q_h$ é o calor transferido por convecção através de um fluido cujo coeficiente de convecção é h. 
+Para que $q_k$ seja igual à $q_h$, então:
+$$
+    k = hx
+$$
+Logo considerou-se a região com o menor coeficiente de condução possível, onde x era menor, chegando-se à $4 W/m\textdegree C$. Assim sendo, temos o resultado da simulação para o caso aproximado onde haveria a presença de um cooler dentro do freezer, cujo resultado é mostrado na figura \ref{fig:simulacao_cooler}.
+
+%    \begin{figure}[H]
+% 	\centering
+%     \includegraphics[width=0.4\textwidth]{figuras/simulacao_cooler}
+%     \caption{Resultado da simulação em regime estacionário com convecção interna e externa}
+%     \label{fig:simulacao_cooler}
+% \end{figure}
+
+Após concluir as simulações em regime estacionário, foi possível realizar uma simulação em regime transiente, utilizando-se como base as propriedades e condições de contorno utilizadas na simulação com convecção interna e externa, onde analisou-se 10000s de funcionamento do Freezer, onde em 5400s observou-se que o Freezer já atingia temperaturas abaixo de zero em sua maior parte. Como resultado, temos que o Freezer estaria com o ambiente apropriado para o armazenamento dos picolés após aproximadamente uma hora e meia refrigerando, como visto na Figura \ref{fig:temp_5402}.
+
+%     \begin{figure}[!htb]
+%     	\begin{floatrow}
+%         	\ffigbox{\includegraphics[scale=0.5]{figuras/temp_5402}}
+%{\caption{Resultado da simulação para regime transiente após aproximadamente uma hora e meia desde a ativação do compressor}}
+%     \label{fig:temp_5402}
+%             \ffigbox{\includegraphics[scale=0.5]{figuras/temp_7566}{\caption{FResultado da simulação para regime transiente após pouco mais de duas horas desde a ativação do compressor}
+%     \label{fig:temp_7566}
+%         \end{floatrow}
+%     \end{figure}
+
+Observando-se os gráficos mostrados nas Figuras \ref{fig:graph1} e \ref{fig:graph2}, tem-se que a temperatura do Freezer se estabiliza em torno dos 7566s - aproximadamente 36min após atingir o ambiente necessário para os picolés, como mostrado na Figura \ref{fig:temp_7566}. Logo, este seria o momento ideal para se desligar o compressor e ao fazer isso, o Freezer manteria um ambiente apropriado para os picolés por aproximadamente 15min, como mostrado na figura \ref{fig:temp_8566}, após esse período o compressor deveria ser religado e permanecer por aproximadamente 30min - tempo aproximado para a temperatura interna se estabilizar - para ser em seguida desligado novamente por 15min, seguindo assim um ciclo onde em 67\% do tempo o compressor estaria ligado.. Estes resultados da simulação serão validados experimentalmente e, caso provem-se distantes da realidade, serão adaptados para melhor representar o caso real. 
+
+%    \begin{figure}[H]
+% 	\centering
+%     \includegraphics[width=0.8\textwidth]{figuras/graph1}
+%     \caption{Gráfico da temperatura média nas paredes do freezer em função do tempo}
+%     \label{fig:graph1}
+% \end{figure}
+
+%    \begin{figure}[H]
+% 	\centering
+%     \includegraphics[width=0.8\textwidth]{figuras/graph2}
+%     \caption{Gráfico da temperatura média na face inferior do interior do freezer em função do tempo}
+%     \label{fig:graph2}
+% \end{figure}
+
+%    \begin{figure}[H]
+% 	\centering
+%     \includegraphics[width=0.6\textwidth]{figuras/temp_8444}
+%     \caption{Resultado da simulação para regime transiente após aproximadamente quinze minutos desde a desativação do compressor}
+%     \label{fig:temp_8444}
+% \end{figure}
 
 \end{itemize}
+
 
 \section{Solução de Energia}
 
@@ -557,12 +822,12 @@ $h_{1}$ é a entalpia no final da compressão (kJ/kg);
     \item Diagrama Elétrico Simplificado
     	Abaixo, temos um diagrama elétrico simplificado da \textit{Vending Machine}, ele representa o circuito de alimentação utilizado, desde a geração de energia até o uso final. Este diagrama será refinado e detalhado no último ponto de controle, pois o sistema poderá sofrer algumas modificações e adições, tais como sistema de proteção e sistema externo auxiliar para o compressor.
 
-       \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figuras/diagrama_simplificado}
-    \caption{Diagrama Elétrico Simplificado}
-    \label{fig:diagrama_simplificado}
-\end{figure}
+%        \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{figuras/diagrama_simplificado}
+%     \caption{Diagrama Elétrico Simplificado}
+%     \label{fig:diagrama_simplificado}
+% \end{figure}
 
 		A seguir detalharemos cada um dos elementos do sistema, bem como o seu dimensionamento e características principais.
 
@@ -610,12 +875,12 @@ Potência mínima do gerador (Wp) = \frac{\text{1880}(Wh/dia) }{\text{4} (h/dia)
             A área externa do módulo \textit{Yingli Solar-YL020P-17B 1/7} é de $0,17m^{2}$, possui uma produção média mensal de energia de 2,50kWh/mês, esse valores são importantes para que seja observado que um painel de maior dimensão apresentaria um melhor comportamento quando associado na \textit{Vending Machine}, mas por viabilidade econômica não será possível a implementação de um painel maior.
             Abaixo, uma foto do painel que sera instalado.
 
- \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figuras/painel_solar01}
-    \caption{Yingli Solar-YL020P-17B 1/7 }
-    \label{fig:painel_solar01}
-\end{figure}
+%  \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{figuras/painel_solar01}
+%     \caption{Yingli Solar-YL020P-17B 1/7 }
+%     \label{fig:painel_solar01}
+% \end{figure}
 
 \begin{itemize}
 \item Bateria
@@ -677,11 +942,11 @@ Sendo que o consumo total é obtido a partir do levantamento das cargas, a auton
         O cálculo da corrente do controlador de carga, do lado das cargas, pode ser obtido através da expressão:
 
 \begin{eqnarray}
-\text{Corrente do controlador de Carga (A)} = \frac{\text{Potência das cargas CC (W) x 1,1}}{\text{Tensão do banco de baterias (V)}}
+\text{Corrente do controlador de Carga (A)} = \frac{\text{Potência das cargas (W) x 1,1}}{\text{Tensão do banco de baterias (V)}}
 \end{eqnarray}
 
 \begin{eqnarray}
-\text{Corrente do controlador de Carga (A)} = \frac{\text{Potência das cargas CC (W) x 1,1}}{\text{Tensão do banco de baterias (V)}}
+\text{Corrente do controlador de Carga (A)} = \frac{\text{ 380(W) x 1,1}}{\text{12 (V)}} = 34,9 (A)
 \end{eqnarray}
 
 \begin{itemize}
@@ -693,12 +958,12 @@ Para o dimensionamento do inversor, verificar a potência total das cargas de CA
 
         Abaixo, temos um gráfico do comportamento de descarga da bateria estacionária FREEDOM DF500 (40Ah), a qual foi escolhida por atender às necessidades e permitir o funcionamento por um período de 3,5 horas.
 
-      \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figuras/curva_descarga}
-    \caption{Curva de Descarga}
-    \label{fig:curva_descarga}
-\end{figure}
+%       \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{figuras/curva_descarga}
+%     \caption{Curva de Descarga}
+%     \label{fig:curva_descarga}
+% \end{figure}
 
 		Na curva de descarga apresentada acima é possível verificar o decaimento da Tensão x Tempo, conforme o tempo passa com o consumo indicado no gráfico. O comportamento inicial esta diretamente relacionado com a tensão inicial, onde nota-se uma queda abrupta, seguida de uma estabilização e prolongamento até a descarga chegar em níveis mais próximos do limite inferior de 10,5V recomendados pelo fabricante, esse comportamento é característico das baterias estacionárias.
         Para a \textit{Vendind Machine}, a curva que mais se aproxima do comportamento esta entre a de 10 e 5A, com isso, o tempo de operação está de acordo com o que foi estimado inicialmente.
@@ -708,39 +973,39 @@ Para o dimensionamento do inversor, verificar a potência total das cargas de CA
 \end{itemize}
 			 Os testes são cruciais para a validação de todo e qualquer projeto, um dos primeiros testes feitos pelo grupo foi a confirmação do funcionamento do compressor e a verificação se o sistema de refrigeração, serpentinas e agregados estavam funcionando perfeitamente. Para isso, o conjunto foi desmontado e uma inspeção de todos os componentes foi feita. Com o compressor em funcionamento a validação de que o equipamento estava refrigerando foi feita através de um Termômetro Infravermelho, modelo GM300 da Benetech, indicando a temperatura de -6,7\degree, o que de acordo com as especificações técnicas fornecidas pelo fabricante do equipamento. Para uma confirmação mais precisa do dado, uma segunda verificação foi feita com um Termopar da Minipa, o qual apresentou um resultado muito próximo do outro equipamento, o que confirma que o compressor está com um bom funcionamento e sua temperatura de operação atende às necessidades do projeto.
 
-                   \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figuras/medicao_laser}
-    \caption{Medição GM300}
-    \label{fig:medicao_laser}
-\end{figure}
+%  \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{figuras/medicao_laser}
+%     \caption{Medição GM300}
+%     \label{fig:medicao_laser}
+% \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figuras/medicao_termopar}
-    \caption{Medição Termopar Minipa}
-    \label{fig:medicao_termopar}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{figuras/medicao_termopar}
+%     \caption{Medição Termopar Minipa}
+%     \label{fig:medicao_termopar}
+% \end{figure}
 
 		 Algumas baterias usadas foram testadas anteriormente à compra da FREEDOM DF500, para fins experimentais e para avaliação da possibilidade de uso no projeto. As baterias abaixo foram colocadas em um equipamento balanceador de células e carregador da marca \textit{Turnigy Reaktor - 250W - 10A}, objetivando verificar se as baterias estavam em condições de uso. O equipamento emite um registo das resistências internas das baterias, as quais nenhuma estava apta para atender às necessidades do projeto. Fato esse, que foi solucionado com a compra de uma bateria estacionária nova, a qual passou pelo mesmo equipamento e apresentou bons resultados.
 
-  \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figuras/baterias_testadas}
-    \caption{Baterias Testadas}
-    \label{fig:baterias_testadas}
-\end{figure}
+%   \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{figuras/baterias_testadas}
+%     \caption{Baterias Testadas}
+%     \label{fig:baterias_testadas}
+% \end{figure}
 
        O teste de funcionamento da bateria, inversor e compressor ligados em conjunto foi feito no Laboratório de Termoflúidos da UnB, inicialmente foram feitas medições de tensão de saída e entrada do inversor, com o propósito  de verificar se o funcionamento do equipamento esta de acordo com as especificações do fabricante, e para não danificar os subsistemas, a verificação da tensão da bateria para validação de que o produto estava com a tensão correta de operação. Todas essas medições foram feitas com um Multímetro Minipa ET-400. A montagem dos bornes das baterias e encaixes foram feitos de maneira a deixar a maior superfície de contato com as ponteiras dos equipamentos.
        O acionamento do sistema não deu partida no compressor, e o Inversor entrou em modo de segurança, o que indica  a corrente solicitada foi maior do que a suportada pelo dispositivo de segurança do inversor. Após esse imprevisto, a equipe realizou testes com o inversor utilizando outros tipos de carga, tais como: Furadeira DeWalt (650W), Esmeril (200W) e Secador de Cabelo Taiff (1300W), para todos os equipamentos o inversor correspondeu corretamente. Portanto,  o não acionamento do compressor \textit{TecumSeh} (AE9415ES) não é causada pela sua potência de 337W.
        Uma possibilidade para justificar o não acionamento do compressor, é a corrente de partida exigida. A potência de partida foi calculada considerando um fator de segurança de 6 vezes a potência nominal do equipamento, segundo o manual "Guia de Seleção de Partidas" da WEG, o que resulta em um pico de potência de 2022W, o que está dentro dos limites do Inversor comprado cuja as especificações são de 2000W, com pico de 4000W no momento da partida. Temos que todos equipamentos estão dentro das especificações de operação, contudo, o inversor não correspondeu como o esperado e soluções para o problema estão sendo elaboradas para que ocorra o pleno funcionamento da máquina.
 
-  \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figuras/teste_bancada}
-    \caption{Teste na Bancada - Laboratório UnB}
-    \label{fig:teste_bancada}
-\end{figure}
+%   \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{figuras/teste_bancada}
+%     \caption{Teste na Bancada - Laboratório UnB}
+%     \label{fig:teste_bancada}
+% \end{figure}
 
 % \begin{figure}
 % \centering

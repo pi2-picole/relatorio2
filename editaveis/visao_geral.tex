@@ -17,7 +17,7 @@ O subsistema de \textit{software} é composto por um \textit{webapp} e o \textit
 
 \section{Visão Geral Do Subsistema de Eletrônica}
 
-A visão geral do subsistema eletrônico, consiste no controle geral feito pela Raspberry PI 3, na aquisição de dados da localização (GPS), informação a qual é utilizada no sistema de segurança de furto e extravio. O sistema de sensoriamento e controle de recepcionamento do cliente (som e interface) também é submetido por tal controlador, devido à sua alta capacidade de processamento. O diagrama da atividade eletrônica é mostrado na figura \ref{fig:diagrama} a seguir:
+A visão geral do subsistema eletrônico, consiste no controle geral feito pela Raspberry PI 3 e na sua comunicação com o Arduino UNO. Na integração entre software e hardware via GPRS e na aquisição de dados da localização (GPS), informação a qual é utilizada no sistema de segurança de furto e extravio. O sistema de sensoriamento e controle de recepcionamento do cliente (som e interface) também é submetido por tais controladores, devido à sua alta capacidade de processamento e facilidade de comunicação. O diagrama da atividade eletrônica é mostrado na figura \ref{fig:diagrama} a seguir:
 
 \begin{figure}[H]
 	\centering
@@ -51,4 +51,5 @@ A visão geral das estruturas do projeto é dividida pelos componentes que neces
     \label{fig:diagrama_energia}
     \caption{Diagrama energia}
 \end{figure}
+
 	O sistema foi dimensionado com um fator de segurança elevado, para que a \textit{Vending Machine} entregasse a confiabilidade de um produto passível de comercialização. Para isso, a bateria teve em seu dimensionamento a consideração do tempo de operação do serviço relacionado diretamente com o consumo da bateria. O inversor utilizado para o projeto foi dimensionado considerando as cargas exigidas, principalmente pelo compressor, o qual é o principal consumidor do produto. 
